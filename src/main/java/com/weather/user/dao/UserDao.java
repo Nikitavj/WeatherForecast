@@ -6,5 +6,7 @@ import com.weather.user.User;
 import java.util.Optional;
 
 public interface UserDao extends Dao<User> {
+    int save(User user);
+
     Optional<User> findByName(String name);
 }

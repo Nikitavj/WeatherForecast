@@ -2,11 +2,13 @@ package com.weather.user.dao;
 
 import com.weather.dao.BaseDao;
 import com.weather.exception.DatabaseException;
+import com.weather.exception.EntityDuplicationException;
 import com.weather.hibernate.HibernateUtils;
 import com.weather.user.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,21 +20,41 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public Optional<User> getById(int id) {
-        try (Session session = sessionFactory.getCurrentSession()) {
-            Optional.ofNullable(session.get(User.class, id));
+    public int save(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            int id = (int) session.save(user);
+            session.getTransaction().commit();
+
+            log.info("В БД сохранен объект id = {} {}", id,  user);
+
+            return id;
+
+        } catch (ConstraintViolationException e) {
+            log.warn("Попытка сохранить объект {}, который содержится в БД", user);
+            throw new EntityDuplicationException(e.getMessage());
 
         } catch (HibernateException e) {
             log.warn("Исключение БД: {}", e.getMessage());
             throw new DatabaseException(e.getMessage());
         }
-
-        return Optional.empty();
     }
 
     @Override
-    public List<User> getAll() {
-        try (Session session = sessionFactory.getCurrentSession()) {
+    public Optional<User> findById(int id) {
+        try (Session session = sessionFactory.openSession()) {
+            User user = session.get(User.class, id);
+            return Optional.ofNullable(user);
+
+        } catch (HibernateException e) {
+            log.warn("Исключение БД: {}", e.getMessage());
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<User> findAll() {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from User", User.class).list();
 
         } catch (HibernateException e) {
@@ -42,12 +64,14 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> findByName(String name) {
-        try (Session session = sessionFactory.getCurrentSession()) {
-            return Optional.ofNullable(
-                    session.createQuery("from User where login = :name", User.class)
-                            .getResultList()
-                            .get(0));
+    public Optional<User> findByName(String userName) {
+        try (Session session = sessionFactory.openSession()) {
+            User user = session.createQuery("from User where login = :name", User.class)
+                            .setParameter("userName", userName)
+                    .getSingleResultOrNull();
+
+            return Optional.ofNullable(user);
+
         } catch (HibernateException e) {
             log.warn("Исключение БД: {}", e.getMessage());
             throw new DatabaseException(e.getMessage());

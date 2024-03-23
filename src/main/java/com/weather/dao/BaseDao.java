@@ -15,27 +15,8 @@ public abstract class BaseDao<T> implements Dao<T> {
     private Logger log = LoggerFactory.getLogger(BaseDao.class);
 
     @Override
-    public void save(T entity) {
-        try (Session session = sessionFactory.getCurrentSession()) {
-            session.beginTransaction();
-            session.persist(entity);
-            session.getTransaction().commit();
-
-            log.info("В БД сохранен объект {}", entity.toString());
-
-        } catch (ConstraintViolationException e) {
-            log.warn("Попытка сохранить объект {}, который содержится в БД", entity.toString());
-            throw new EntityDuplicationException(e.getMessage());
-
-        } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
-            throw new DatabaseException(e.getMessage());
-        }
-    }
-
-    @Override
     public void update(T entity) {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(entity);
             session.getTransaction().commit();
@@ -51,7 +32,7 @@ public abstract class BaseDao<T> implements Dao<T> {
 
     @Override
     public void delete(T entity) {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(entity);
             session.getTransaction().commit();
