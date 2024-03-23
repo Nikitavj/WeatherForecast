@@ -8,9 +8,9 @@ public interface Dao<T> {
 
     List<T> getAll();
 
-    void save(T t);
+    void save(T entity);
 
-    void update(T t);
+    void update(T entity);
 
-    void delete(T t);
+    void delete(T entity);
 }
