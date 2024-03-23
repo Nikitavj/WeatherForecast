@@ -2,13 +2,12 @@ package com.weather.location;
 
 import com.weather.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,7 +19,7 @@ public class Location {
 
     private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "UserId")
     private User user;
 

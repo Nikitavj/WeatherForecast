@@ -42,9 +42,9 @@ public class SessionDaoImpl extends BaseDao<com.weather.session.Session> impleme
     }
 
     @Override
-    public Optional<com.weather.session.Session> findById(int id) {
+    public Optional<com.weather.session.Session> findById(UUID uuid) {
         try (Session sessionHiber = sessionFactory.openSession()) {
-            com.weather.session.Session sessionWeather = sessionHiber.get(com.weather.session.Session.class, id);
+            com.weather.session.Session sessionWeather = sessionHiber.get(com.weather.session.Session.class, uuid);
 
             return Optional.ofNullable(sessionWeather);
 
@@ -69,7 +69,9 @@ public class SessionDaoImpl extends BaseDao<com.weather.session.Session> impleme
     @Override
     public Optional<com.weather.session.Session> findByUser(User user) {
         try (Session sessionHiber = sessionFactory.openSession()) {
-            com.weather.session.Session session = (com.weather.session.Session) sessionHiber.createQuery("from Session where user = :user").getSingleResultOrNull();
+            com.weather.session.Session session = (com.weather.session.Session) sessionHiber
+                    .createQuery("from Session where user = :user")
+                    .getSingleResultOrNull();
 
             return Optional.ofNullable(session);
 
