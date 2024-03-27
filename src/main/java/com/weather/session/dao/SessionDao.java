@@ -1,8 +1,8 @@
 package com.weather.session.dao;
 
 import com.weather.dao.Dao;
-import com.weather.session.Session;
-import com.weather.user.User;
+import com.weather.session.models.Session;
+import com.weather.user.models.User;
 
 import java.util.Optional;
 import java.util.UUID;

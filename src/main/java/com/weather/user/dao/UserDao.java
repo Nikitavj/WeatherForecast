@@ -1,7 +1,7 @@
 package com.weather.user.dao;
 
 import com.weather.dao.Dao;
-import com.weather.user.User;
+import com.weather.user.models.User;
 
 import java.util.Optional;
 

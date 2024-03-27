@@ -1,0 +1,38 @@
+2024-03-23 21:28:41,341 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "sessions_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-23 21:34:27,798 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "sessions_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-23 22:44:44,048 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-23 22:45:38,557 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-23 22:46:19,684 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-23 22:49:04,725 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 19:13:57,019 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uniqueuserlatitudelongitude"
+  Подробности: Ключ "(userid, latitude, longitude)=(1, 46789.5884, 32473294.32423)" уже существует.
+2024-03-25 19:55:54,521 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 19:59:19,134 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 20:03:30,237 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 20:07:16,869 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 20:08:24,434 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "locations_userid_key"
+  Подробности: Ключ "(userid)=(1)" уже существует.
+2024-03-25 20:13:55,227 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-03-25 20:16:59,640 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-03-25 20:40:14,417 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-03-25 20:50:27,638 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uniqueuserlatitudelongitude"
+  Подробности: Ключ "(userid, latitude, longitude)=(1, 46789.5884, 32473294.32423)" уже существует.
+2024-03-25 21:08:23,618 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-03-25 21:11:11,443 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-03-25 21:13:14,560 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
+  Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".

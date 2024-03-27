@@ -4,7 +4,7 @@ import com.weather.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.hibernate.HibernateUtils;
-import com.weather.user.User;
+import com.weather.user.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -1,17 +1,12 @@
 package com.weather.dao;
 
 import com.weather.exception.DatabaseException;
-import com.weather.exception.EntityDuplicationException;
 import com.weather.hibernate.HibernateUtils;
-import com.weather.user.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Optional;
 
 public abstract class BaseDao<T> implements Dao<T> {
     private SessionFactory sessionFactory = HibernateUtils.getSessionFactory();

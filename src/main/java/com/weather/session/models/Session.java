@@ -1,6 +1,6 @@
-package com.weather.session;
+package com.weather.session.models;
 
-import com.weather.user.User;
+import com.weather.user.models.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +20,10 @@ public class Session {
     private UUID id;
 
     @OneToOne
-    @JoinColumn(name = "UserId")
+    @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
+    @Column(nullable = false)
     private LocalDateTime expiresAt;
 
     public Session(User user, LocalDateTime expiresAt) {
