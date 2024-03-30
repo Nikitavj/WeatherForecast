@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.IContext;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
@@ -22,7 +21,7 @@ public class BaseController extends HttpServlet {
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
     }
 
-    public IContext buildIContext(HttpServletRequest req, HttpServletResponse resp) {
+    public WebContext buildIContext(HttpServletRequest req, HttpServletResponse resp) {
 
         IWebExchange webExchange =  application.buildExchange(req, resp);
         return new WebContext(webExchange);

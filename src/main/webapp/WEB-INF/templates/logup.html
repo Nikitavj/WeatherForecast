@@ -8,18 +8,24 @@
 <div class="form_auth_block">
     <div class="form_auth_block_content">
 
-        <p class="form_auth_block_head_text">Авторизация</p>
+        <p class="form_auth_block_head_text">Регистрация</p>
 
-        <form class="form_auth_style" action="#" method="post">
+        <form class="form_auth_style" action="/logup" method="post">
 
             <label>Введите Ваш имейл</label>
-            <input type="email" name="auth_email" placeholder="Введите Ваш имейл" required >
+            <input id="emailInput" type="email" th:value="${login}" name="login" placeholder="user@gvmail.com" required >
+
+            <br>
 
             <label>Введите Ваш пароль</label>
-            <input type="password" name="auth_pass" placeholder="Введите пароль" required >
+            <input type="password" name="password" placeholder="password" required >
+
+            <br>
 
             <label>Повторите Ваш пароль</label>
-            <input type="password" name="auth_pass" placeholder="Введите пароль" required >
+            <input type="password" name="repeatPassword" placeholder="password" required >
+
+            <br>
 
             <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
         </form>
@@ -28,4 +34,16 @@
 </div>
 
 </body>
+
+<script>
+    const input = document.getElementById('emailInput');
+
+    input.addEventListener('input', function() {
+        if (this.value === '') {
+            this.setAttribute('placeholder', 'user@gmail.com');
+        } else {
+            this.removeAttribute('placeholder');
+        }
+    });
+</script>
 </html>
