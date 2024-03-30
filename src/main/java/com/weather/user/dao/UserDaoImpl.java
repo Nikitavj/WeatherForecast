@@ -32,7 +32,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
         } catch (ConstraintViolationException e) {
             log.warn("Попытка сохранить объект {}, который содержится в БД", user);
-            throw new EntityDuplicationException(e.getMessage());
+            throw new EntityDuplicationException("Пользователь с таким именем уже существует");
 
         } catch (HibernateException e) {
             log.warn("Исключение БД: {}", e.getMessage());

@@ -13,7 +13,7 @@
         <form class="form_auth_style" action="/logup" method="post">
 
             <label>Введите Ваш имейл</label>
-            <input id="emailInput" type="email" th:value="${login}" name="login" placeholder="user@gvmail.com" required >
+            <input id="emailInput" type="email" th:value="${userName}" name="userName" placeholder="user@gvmail.com" required >
 
             <br>
 
@@ -28,6 +28,10 @@
             <br>
 
             <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
+
+            <br>
+
+            <p th:text="${error}"></p>
         </form>
 
     </div>
