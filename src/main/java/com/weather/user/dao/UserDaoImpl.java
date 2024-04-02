@@ -3,7 +3,7 @@ package com.weather.user.dao;
 import com.weather.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
-import com.weather.hibernate.HibernateUtils;
+import com.weather.utils.HibernateUtils;
 import com.weather.user.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -67,7 +67,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     public Optional<User> findByName(String userName) {
         try (Session session = sessionFactory.openSession()) {
             User user = session.createQuery("from User where login = :name", User.class)
-                            .setParameter("userName", userName)
+                            .setParameter("name", userName)
                     .getSingleResultOrNull();
 
             return Optional.ofNullable(user);

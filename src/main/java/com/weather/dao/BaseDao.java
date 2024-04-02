@@ -1,7 +1,7 @@
 package com.weather.dao;
 
 import com.weather.exception.DatabaseException;
-import com.weather.hibernate.HibernateUtils;
+import com.weather.utils.HibernateUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

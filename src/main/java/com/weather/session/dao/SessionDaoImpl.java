@@ -3,7 +3,7 @@ package com.weather.session.dao;
 import com.weather.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
-import com.weather.hibernate.HibernateUtils;
+import com.weather.utils.HibernateUtils;
 import com.weather.user.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -71,6 +71,7 @@ public class SessionDaoImpl extends BaseDao<com.weather.session.models.Session> 
         try (Session sessionHiber = sessionFactory.openSession()) {
             com.weather.session.models.Session session = (com.weather.session.models.Session) sessionHiber
                     .createQuery("from Session where user = :user")
+                    .setParameter("user", user)
                     .getSingleResultOrNull();
 
             return Optional.ofNullable(session);

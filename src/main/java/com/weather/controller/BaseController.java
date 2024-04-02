@@ -21,7 +21,7 @@ public class BaseController extends HttpServlet {
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
     }
 
-    public WebContext buildIContext(HttpServletRequest req, HttpServletResponse resp) {
+    public WebContext buildWebContext(HttpServletRequest req, HttpServletResponse resp) {
 
         IWebExchange webExchange =  application.buildExchange(req, resp);
         return new WebContext(webExchange);

@@ -1,4 +1,4 @@
-package com.weather.hibernate;
+package com.weather.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

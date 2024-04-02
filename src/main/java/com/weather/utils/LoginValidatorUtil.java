@@ -1,10 +1,10 @@
-package com.weather.controller;
+package com.weather.utils;
 
-import com.weather.exception.InvalidLogupException;
+import com.weather.exception.InvalidLoginException;
 
 import java.util.regex.Pattern;
 
-public class Validator {
+public class LoginValidatorUtil {
 
     private final static String EMAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
@@ -17,7 +17,7 @@ public class Validator {
         if (userName == null
                 || !Pattern.compile(EMAIL_PATTERN).matcher(userName).matches()) {
 
-            throw new InvalidLogupException("Введенный email некорректен");
+            throw new InvalidLoginException("Введенный email некорректен");
         }
     }
 
@@ -25,7 +25,7 @@ public class Validator {
         if (password == null
                 || !password.equals(repeatPassword)) {
 
-            throw new InvalidLogupException("Пароли не совпадают");
+            throw new InvalidLoginException("Пароли не совпадают");
         }
 
         String MIN_LENGTH = "3";
@@ -43,7 +43,7 @@ public class Validator {
 
         if (!Pattern.compile(PATTERN, Pattern.CASE_INSENSITIVE).matcher(password).matches()) {
 
-            throw new InvalidLogupException(
+            throw new InvalidLoginException(
                     String.format(
                             "Пароль должен сосотоять из: A-z, 0-9, no spase, length %s-%s",
                             MIN_LENGTH,
