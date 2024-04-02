@@ -3,12 +3,9 @@ package com.weather.controller;
 import com.weather.session.dao.SessionDao;
 import com.weather.session.dao.SessionDaoImpl;
 import com.weather.session.models.Session;
-import com.weather.session.servises.SessionService;
-import com.weather.session.servises.SessionServiceImpl;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
