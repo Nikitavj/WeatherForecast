@@ -4,12 +4,13 @@ import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
 import com.weather.services.LogupServiceImpl;
 import com.weather.services.LogupServise;
-import com.weather.utils.LoginValidatorUtil;
+import com.weather.utils.LogupValidatorUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 import org.thymeleaf.context.IContext;
 import org.thymeleaf.context.WebContext;
 
@@ -36,9 +37,10 @@ public class LogupController extends BaseController {
         String repeatPassword = req.getParameter("repeatPassword");
 
         try {
-            LoginValidatorUtil.validLogup(userName, password, repeatPassword);
+            LogupValidatorUtil.validLogup(userName, password, repeatPassword);
 
-            UUID uuidSession = logupServise.logup(userName, password);
+            String hashpw = BCrypt.hashpw(password, BCrypt.gensalt());
+            UUID uuidSession = logupServise.logup(userName, hashpw);
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);
 

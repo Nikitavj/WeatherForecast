@@ -8,6 +8,7 @@ import com.weather.session.models.Session;
 import com.weather.user.dao.UserDao;
 import com.weather.user.dao.UserDaoImpl;
 import com.weather.user.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
         if (optUser.isPresent()) {
             User user = optUser.get();
 
-            if (user.getPassword().equals(password)) {
+            if (BCrypt.checkpw(password, user.getPassword())) {
 
                 try {
                     return sessionDao.save(new Session(

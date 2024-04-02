@@ -2,9 +2,10 @@ package com.weather.user.models;
 
 import com.weather.location.models.Location;
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

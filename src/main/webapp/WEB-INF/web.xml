@@ -8,7 +8,7 @@
 
     <filter>
         <filter-name>existingSessionFilter</filter-name>
-        <filter-class>com.weather.controller.ExistingSessionFilter</filter-class>
+        <filter-class>com.weather.filters.ExistingSessionFilter</filter-class>
     </filter>
 
 

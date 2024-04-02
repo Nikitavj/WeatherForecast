@@ -1,4 +1,4 @@
-package com.weather.controller;
+package com.weather.filters;
 
 import com.weather.session.dao.SessionDao;
 import com.weather.session.dao.SessionDaoImpl;
