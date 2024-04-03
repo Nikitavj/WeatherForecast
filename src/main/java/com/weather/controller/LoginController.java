@@ -2,6 +2,8 @@ package com.weather.controller;
 
 import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
+import com.weather.services.AccountService;
+import com.weather.services.AccountServiceImpl;
 import com.weather.services.LoginService;
 import com.weather.services.LoginServiceImpl;
 import jakarta.servlet.ServletException;
@@ -16,7 +18,8 @@ import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginController extends BaseController {
-    LoginService loginService = new LoginServiceImpl();
+//    LoginService loginService = new LoginServiceImpl();
+    AccountService accountService = new AccountServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +35,7 @@ public class LoginController extends BaseController {
         String password = req.getParameter("password");
 
         try {
-            UUID uuidSession = loginService.login(userName, password);
+            UUID uuidSession = accountService.login(userName, password);
 
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);

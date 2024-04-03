@@ -14,4 +14,6 @@ public interface SessionDao extends Dao<Session> {
     Optional<Session> findById(UUID uuid);
 
     Optional<Session> findByUser(User user);
+
+    void delete(UUID uuid);
 }

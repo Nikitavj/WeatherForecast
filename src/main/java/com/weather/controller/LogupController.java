@@ -2,6 +2,8 @@ package com.weather.controller;
 
 import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
+import com.weather.services.AccountService;
+import com.weather.services.AccountServiceImpl;
 import com.weather.services.LogupServiceImpl;
 import com.weather.services.LogupServise;
 import com.weather.utils.LogupValidatorUtil;
@@ -19,8 +21,7 @@ import java.util.UUID;
 
 @WebServlet("/logup")
 public class LogupController extends BaseController {
-
-    LogupServise logupServise = new LogupServiceImpl();
+    AccountService accountService = new AccountServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,9 +39,8 @@ public class LogupController extends BaseController {
 
         try {
             LogupValidatorUtil.validLogup(userName, password, repeatPassword);
+            UUID uuidSession = accountService.logup(userName, password);
 
-            String hashpw = BCrypt.hashpw(password, BCrypt.gensalt());
-            UUID uuidSession = logupServise.logup(userName, hashpw);
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);
 
