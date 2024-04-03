@@ -4,15 +4,12 @@ import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
 import com.weather.services.AccountService;
 import com.weather.services.AccountServiceImpl;
-import com.weather.services.LogupServiceImpl;
-import com.weather.services.LogupServise;
 import com.weather.utils.LogupValidatorUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.mindrot.jbcrypt.BCrypt;
 import org.thymeleaf.context.IContext;
 import org.thymeleaf.context.WebContext;
 

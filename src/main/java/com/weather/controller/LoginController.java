@@ -1,11 +1,8 @@
 package com.weather.controller;
 
-import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
 import com.weather.services.AccountService;
 import com.weather.services.AccountServiceImpl;
-import com.weather.services.LoginService;
-import com.weather.services.LoginServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -18,7 +15,6 @@ import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginController extends BaseController {
-//    LoginService loginService = new LoginServiceImpl();
     AccountService accountService = new AccountServiceImpl();
 
     @Override

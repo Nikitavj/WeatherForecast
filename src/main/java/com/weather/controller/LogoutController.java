@@ -2,8 +2,6 @@ package com.weather.controller;
 
 import com.weather.services.AccountService;
 import com.weather.services.AccountServiceImpl;
-import com.weather.session.dao.SessionDao;
-import com.weather.session.dao.SessionDaoImpl;
 import com.weather.session.models.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
