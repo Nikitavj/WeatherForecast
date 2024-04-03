@@ -18,7 +18,6 @@ public class ContextListener implements ServletContextListener {
 
         JakartaServletWebApplication application = JakartaServletWebApplication.buildApplication(context);
         context.setAttribute("application", application);
-
     }
 
     @Override

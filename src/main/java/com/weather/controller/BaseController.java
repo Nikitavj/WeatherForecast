@@ -1,5 +1,7 @@
 package com.weather.controller;
 
+import com.weather.services.AccountService;
+import com.weather.services.AccountServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;
     protected JakartaServletWebApplication application;
+    protected AccountService accountService;
 
     @Override
     public void init() throws ServletException {
@@ -19,6 +22,8 @@ public class BaseController extends HttpServlet {
                 .getAttribute("templateEngine");
 
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
+
+        accountService = new AccountServiceImpl();
     }
 
     public WebContext buildWebContext(HttpServletRequest req, HttpServletResponse resp) {

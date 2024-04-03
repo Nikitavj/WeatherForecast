@@ -59,4 +59,11 @@ public class AccountServiceImpl implements AccountService{
     public void logout(UUID sessionId) {
         sessionDao.delete(sessionId);
     }
+
+    @Override
+    public boolean checkAuthentication(UUID sessionId) {
+        Optional<Session> optSession = sessionDao.findById(sessionId);
+
+        return optSession.isPresent();
+    }
 }

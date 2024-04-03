@@ -2,8 +2,6 @@ package com.weather.controller;
 
 import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
-import com.weather.services.AccountService;
-import com.weather.services.AccountServiceImpl;
 import com.weather.utils.LogupValidatorUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +16,6 @@ import java.util.UUID;
 
 @WebServlet("/logup")
 public class LogupController extends BaseController {
-    AccountService accountService = new AccountServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

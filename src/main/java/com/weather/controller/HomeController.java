@@ -1,5 +1,7 @@
 package com.weather.controller;
 
+import com.weather.session.models.Session;
+import com.weather.user.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +18,9 @@ public class HomeController extends BaseController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         WebContext context = buildWebContext(req, resp);
-        context.setVariable("user", session.getAttribute("user"));
+
+        Session sessionOfUser = (Session) session.getAttribute("session");
+        context.setVariable("user", sessionOfUser.getUser());
 
         templateEngine.process("home", context, resp.getWriter());
     }

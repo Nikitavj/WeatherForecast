@@ -1,8 +1,6 @@
 package com.weather.controller;
 
 import com.weather.exception.InvalidLoginException;
-import com.weather.services.AccountService;
-import com.weather.services.AccountServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -15,7 +13,6 @@ import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginController extends BaseController {
-    AccountService accountService = new AccountServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +41,5 @@ public class LoginController extends BaseController {
             ctx.setVariable("error", e.getMessage());
             templateEngine.process("login", ctx, resp.getWriter());
         }
-
     }
 }

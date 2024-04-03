@@ -1,24 +1,27 @@
 package com.weather.filters;
 
+import com.weather.services.AccountService;
+import com.weather.services.AccountServiceImpl;
+import com.weather.services.SessionService;
+import com.weather.services.SessionServiceImpl;
 import com.weather.session.dao.SessionDao;
-import com.weather.session.dao.SessionDaoImpl;
-import com.weather.session.models.Session;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
 public class ExistingSessionFilter implements Filter {
-    private SessionDao sessionDao;
+    private AccountService accountService;
+    private SessionService sessionService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        sessionDao = new SessionDaoImpl();
+        accountService = new AccountServiceImpl();
+        sessionService = new SessionServiceImpl();
 
         Filter.super.init(filterConfig);
     }
@@ -35,12 +38,9 @@ public class ExistingSessionFilter implements Filter {
 
         if (cookie.isPresent()) {
             UUID sessionId = UUID.fromString(cookie.get().getValue());
-            Optional<Session> optSession = sessionDao.findById(sessionId);
 
-            if (optSession.isPresent()) {
-                session.setAttribute("session", optSession.get());
-                session.setAttribute("user", optSession.get().getUser());
-                session.setAttribute("cookieSessionId", cookie.get());
+            if (accountService.checkAuthentication(sessionId)) {
+                session.setAttribute("session", sessionService.getSessionById(sessionId));
             }
         }
 

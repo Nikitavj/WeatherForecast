@@ -9,4 +9,6 @@ public interface AccountService {
     UUID login(String login, String password);
 
     void logout(UUID sessionId);
+
+    boolean checkAuthentication(UUID sessionId);
 }
