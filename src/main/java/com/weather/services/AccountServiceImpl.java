@@ -9,22 +9,28 @@ import com.weather.user.dao.UserDao;
 import com.weather.user.dao.UserDaoImpl;
 import com.weather.user.models.User;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 public class AccountServiceImpl implements AccountService{
+    private static final long MAX_AGE_SESSION_SECONDS = 3600;
     UserDao userDao = new UserDaoImpl();
     SessionDao sessionDao = new SessionDaoImpl();
 
     @Override
     public UUID logup(String login, String password) {
         String hashpw = BCrypt.hashpw(password, BCrypt.gensalt());
+
         User user = new User(login, hashpw);
         userDao.save(user);
 
-        Session session = new Session(user, LocalDateTime.now());
+        Session session = new Session(
+                user,
+                LocalDateTime
+                        .now()
+                        .plusSeconds(MAX_AGE_SESSION_SECONDS));
+
         return sessionDao.save(session);
     }
 
@@ -38,9 +44,13 @@ public class AccountServiceImpl implements AccountService{
             if (BCrypt.checkpw(password, user.getPassword())) {
 
                 try {
-                    return sessionDao.save(new Session(
+                    Session session = new Session(
                             user,
-                            LocalDateTime.now()));
+                            LocalDateTime
+                                    .now()
+                                    .plusSeconds(MAX_AGE_SESSION_SECONDS));
+
+                    return sessionDao.save(session);
 
                 } catch (EntityDuplicationException e) {
                     return sessionDao.findByUser(user).get().getId();
@@ -64,6 +74,16 @@ public class AccountServiceImpl implements AccountService{
     public boolean checkAuthentication(UUID sessionId) {
         Optional<Session> optSession = sessionDao.findById(sessionId);
 
-        return optSession.isPresent();
+        if (optSession.isPresent()) {
+            Session session = optSession.get();
+            LocalDateTime expiresAt = session.getExpiresAt();
+
+            if (expiresAt.isBefore(LocalDateTime.now())) {
+                sessionDao.delete(session);
+                return false;
+            }
+        }
+
+        return true;
     }
 }

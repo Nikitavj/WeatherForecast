@@ -31,13 +31,15 @@ public class ExistingSessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
 
-        Optional<Cookie> cookie = Arrays.stream(
+        Optional<Cookie> optCookie = Arrays.stream(
                         request.getCookies())
                 .filter(c -> c.getName().equals("sessionId"))
                 .findFirst();
 
-        if (cookie.isPresent()) {
-            UUID sessionId = UUID.fromString(cookie.get().getValue());
+        if (optCookie.isPresent()) {
+            Cookie cookie = optCookie.get();
+            session.setAttribute("cookieSessionId", cookie);
+            UUID sessionId = UUID.fromString(cookie.getValue());
 
             if (accountService.checkAuthentication(sessionId)) {
                 session.setAttribute("session", sessionService.getSessionById(sessionId));

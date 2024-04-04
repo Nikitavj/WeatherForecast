@@ -20,8 +20,11 @@ public class HomeController extends BaseController {
         WebContext context = buildWebContext(req, resp);
 
         Session sessionOfUser = (Session) session.getAttribute("session");
-        context.setVariable("user", sessionOfUser.getUser());
 
+        if (sessionOfUser != null) {
+            context.setVariable("user", sessionOfUser.getUser());
+        }
+        
         templateEngine.process("home", context, resp.getWriter());
     }
 }

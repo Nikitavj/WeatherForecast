@@ -85,10 +85,10 @@ public class SessionDaoImpl extends BaseDao<com.weather.session.models.Session> 
     @Override
     public void delete(UUID uuid) {
         try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
+            session.beginTransaction();
             com.weather.session.models.Session entity = session.get(com.weather.session.models.Session.class, uuid);
             session.remove(entity);
-//            session.getTransaction().commit();
+            session.getTransaction().commit();
 
             log.info("Удален объект {}", entity.toString());
 

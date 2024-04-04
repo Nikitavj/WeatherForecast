@@ -17,16 +17,17 @@ public class LogoutController extends BaseController{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         Session sessionOfUser = (Session) session.getAttribute("session");
-
         Cookie cookieId = (Cookie) session.getAttribute("cookieSessionId");
+
+        if (cookieId != null) {
+            cookieId.setMaxAge(0);
+            resp.addCookie(cookieId);
+        }
 
         if (sessionOfUser != null) {
             accountService.logout(sessionOfUser.getId());
-
-            cookieId.setMaxAge(0);
-            resp.addCookie(cookieId);
-
-            session.invalidate();
         }
+
+        session.invalidate();
     }
 }
