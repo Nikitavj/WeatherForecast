@@ -8,13 +8,14 @@ import com.weather.session.models.Session;
 import com.weather.user.dao.UserDao;
 import com.weather.user.dao.UserDaoImpl;
 import com.weather.user.models.User;
+import com.weather.utils.PropertiesUtil;
 import org.mindrot.jbcrypt.BCrypt;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 public class AccountServiceImpl implements AccountService{
-    private static final long MAX_AGE_SESSION_SECONDS = 3600;
+    private static long MAX_AGE_SESSION_SECONDS_DEFAULT = 3600;
     UserDao userDao = new UserDaoImpl();
     SessionDao sessionDao = new SessionDaoImpl();
 
@@ -29,7 +30,7 @@ public class AccountServiceImpl implements AccountService{
                 user,
                 LocalDateTime
                         .now()
-                        .plusSeconds(MAX_AGE_SESSION_SECONDS));
+                        .plusSeconds(getMaxAgeSessionSeconds()));
 
         return sessionDao.save(session);
     }
@@ -48,7 +49,7 @@ public class AccountServiceImpl implements AccountService{
                             user,
                             LocalDateTime
                                     .now()
-                                    .plusSeconds(MAX_AGE_SESSION_SECONDS));
+                                    .plusSeconds(getMaxAgeSessionSeconds()));
 
                     return sessionDao.save(session);
 
@@ -78,12 +79,16 @@ public class AccountServiceImpl implements AccountService{
             Session session = optSession.get();
             LocalDateTime expiresAt = session.getExpiresAt();
 
-            if (expiresAt.isBefore(LocalDateTime.now())) {
-                sessionDao.delete(session);
-                return false;
+            if (expiresAt.isAfter(LocalDateTime.now())) {
+                return true;
             }
+            sessionDao.delete(session);
         }
+        return false;
+    }
 
-        return true;
+    private long getMaxAgeSessionSeconds() {
+        String maxAgeString = PropertiesUtil.getProperty("cookieMaxAgeSeconds");
+        return maxAgeString != null ? Long.parseLong(maxAgeString) : MAX_AGE_SESSION_SECONDS_DEFAULT;
     }
 }

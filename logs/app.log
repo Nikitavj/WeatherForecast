@@ -36,3 +36,34 @@
   Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
 2024-03-25 21:13:14,560 ERROR o.h.e.j.s.SqlExceptionHelper [main] ОШИБКА: UPDATE или DELETE в таблице "users" нарушает ограничение внешнего ключа "fk3pa04k5lgrjtg8a8utm8a4li2" таблицы "locations"
   Подробности: На ключ (id)=(1) всё ещё есть ссылки в таблице "locations".
+2024-04-05 20:11:25,051 ERROR o.h.e.j.s.SqlExceptionHelper [main] Значение NULL не разрешено для поля "ID"
+NULL not allowed for column "ID"; SQL statement:
+insert into Users(login, password)values ('Yuri@mail.ru', 'Ayiuy1') [23502-224]
+2024-04-05 20:11:25,074 ERROR o.h.o.c.pooling [main] Connection leak detected: there are 1 unclosed connections upon shutting down pool jdbc:h2:mem:testdb
+2024-04-05 20:11:25,075 ERROR o.h.o.c.pooling [main] Connection leak detected: there are 1 unclosed connections
+2024-04-05 20:29:36,297 ERROR o.h.o.c.pooling [main] Connection leak detected: there are 1 unclosed connections upon shutting down pool jdbc:h2:mem:testdb
+2024-04-05 20:29:36,307 ERROR o.h.o.c.pooling [main] Connection leak detected: there are 1 unclosed connections
+2024-04-05 20:48:26,652 ERROR o.h.e.j.s.SqlExceptionHelper [main] Значение NULL не разрешено для поля "ID"
+NULL not allowed for column "ID"; SQL statement:
+insert into Users(login, password)values    ('yuri@mail.ru', 'Ayiuy1'),    ('dmitri@gmail.com', 'adf342TR'),    ('elena@yandex.ru', '324ADre'),    ('robot@rambler.ru', 'kfas34t'),    ('gpt@chat.en', '4324jkldfsA') [23502-224]
+2024-04-06 19:25:39,434 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 19:26:31,106 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 19:27:00,182 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'sdfaerwt@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 19:46:48,627 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 4 */ 'mark@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 4 */ 'mark@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 20:38:45,416 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'mark@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'mark@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 22:42:39,839 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 6 */ 'user@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 6 */ 'user@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-04-06 22:43:28,683 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 6 */ 'user@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 6 */ 'user@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
