@@ -1,5 +1,7 @@
 package com.weather.services;
 
+import com.weather.session.models.Session;
+
 import java.util.UUID;
 
 public interface AccountService {
@@ -10,5 +12,5 @@ public interface AccountService {
 
     void logout(UUID sessionId);
 
-    boolean checkAuthentication(UUID sessionId);
+    Session getSessionIfAuthenticated(UUID sessionId);
 }

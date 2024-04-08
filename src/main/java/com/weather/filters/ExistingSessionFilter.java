@@ -2,9 +2,7 @@ package com.weather.filters;
 
 import com.weather.services.AccountService;
 import com.weather.services.AccountServiceImpl;
-import com.weather.services.SessionService;
-import com.weather.services.SessionServiceImpl;
-import com.weather.session.dao.SessionDao;
+import com.weather.session.models.Session;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,12 +14,10 @@ import java.util.UUID;
 
 public class ExistingSessionFilter implements Filter {
     private AccountService accountService;
-    private SessionService sessionService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         accountService = new AccountServiceImpl();
-        sessionService = new SessionServiceImpl();
 
         Filter.super.init(filterConfig);
     }
@@ -41,8 +37,9 @@ public class ExistingSessionFilter implements Filter {
             session.setAttribute("cookieSessionId", cookie);
             UUID sessionId = UUID.fromString(cookie.getValue());
 
-            if (accountService.checkAuthentication(sessionId)) {
-                session.setAttribute("session", sessionService.getSessionById(sessionId));
+            Session session1 = accountService.getSessionIfAuthenticated(sessionId);
+            if (session1 != null) {
+                session.setAttribute("session", session1);
             }
         }
 

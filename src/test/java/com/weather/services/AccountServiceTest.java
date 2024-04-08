@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
-import java.util.Properties;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -98,11 +97,12 @@ class AccountServiceTest {
     }
 
     @Test
-    void loginWithCheckingLogupUser() {
+    void loginWithCheckingNameUser() {
         Optional<User> userOpt = userDao.findByName(login);
         assertTrue(userOpt.isEmpty());
 
-        assertThrows(InvalidLoginException.class, () -> accountService.login(login, password));
+        assertThrows(InvalidLoginException.class,
+                () -> accountService.login(login, password));
     }
 
     @Test
@@ -135,35 +135,34 @@ class AccountServiceTest {
         Optional<Session> sessionOpt = sessionDao.findById(uuid);
         assertTrue(sessionOpt.isPresent());
 
-        assertTrue(accountService.checkAuthentication(uuid));
+        assertTrue(accountService.getSessionIfAuthenticated(uuid) != null);
 
         accountService.logout(uuid);
         sessionOpt = sessionDao.findById(uuid);
         assertFalse(sessionOpt.isPresent());
 
-        assertFalse(accountService.checkAuthentication(uuid));
+        assertFalse(accountService.getSessionIfAuthenticated(uuid) != null);
     }
 
     @Test
-    void checkAuthenticationAfterExpiresAt() {
+    void checkAuthenticationAfterExpiredLifetimeSession() {
         UUID uuid = accountService.logup(login, password);
         Optional<Session> sessionOpt = sessionDao.findById(uuid);
         assertTrue(sessionOpt.isPresent());
 
-        assertTrue(accountService.checkAuthentication(uuid));
+        assertTrue(accountService.getSessionIfAuthenticated(uuid) != null);
 
-        Long lifetimeSession = Long.parseLong(PropertiesUtil.getProperty("sessionMaxAgeSeconds"));
+        long lifetimeSession = Long.parseLong(PropertiesUtil.getProperty("sessionMaxAgeSeconds"));
 
         try {
+            Thread.sleep(lifetimeSession * 1500);
 
-            Thread.sleep(lifetimeSession * 2000);
+            assertFalse(accountService.getSessionIfAuthenticated(uuid) != null);
+            sessionOpt = sessionDao.findById(uuid);
+            assertFalse(sessionOpt.isPresent());
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        assertFalse(accountService.checkAuthentication(uuid));
-
-        sessionOpt = sessionDao.findById(uuid);
-        assertFalse(sessionOpt.isPresent());
     }
 }

@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public boolean checkAuthentication(UUID sessionId) {
+    public Session getSessionIfAuthenticated(UUID sessionId) {
         Optional<Session> optSession = sessionDao.findById(sessionId);
 
         if (optSession.isPresent()) {
@@ -80,15 +80,15 @@ public class AccountServiceImpl implements AccountService{
             LocalDateTime expiresAt = session.getExpiresAt();
 
             if (expiresAt.isAfter(LocalDateTime.now())) {
-                return true;
+                return session;
             }
             sessionDao.delete(session);
         }
-        return false;
+        return null;
     }
 
     private long getMaxAgeSessionSeconds() {
-        String maxAgeString = PropertiesUtil.getProperty("cookieMaxAgeSeconds");
+        String maxAgeString = PropertiesUtil.getProperty("sessionMaxAgeSeconds");
         return maxAgeString != null ? Long.parseLong(maxAgeString) : MAX_AGE_SESSION_SECONDS_DEFAULT;
     }
 }
