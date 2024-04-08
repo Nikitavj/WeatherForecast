@@ -58,6 +58,7 @@ class AccountServiceTest {
         accountService.logup(login, password);
         userOpt = userDao.findByName(login);
         assertTrue(userOpt.isPresent());
+        assertTrue(login.equals(userOpt.get().getLogin()));
     }
 
     @Test
@@ -78,6 +79,7 @@ class AccountServiceTest {
         Optional<Session> sessionOpt = sessionDao.findById(uuid);
 
         assertTrue(sessionOpt.isPresent());
+        assertTrue(uuid.equals(sessionOpt.get().getId()));
     }
 
     @Test
