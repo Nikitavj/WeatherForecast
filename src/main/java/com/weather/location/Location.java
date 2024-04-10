@@ -1,13 +1,8 @@
-package com.weather.location.models;
+package com.weather.location;
 
-import com.weather.user.models.User;
+import com.weather.user.User;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

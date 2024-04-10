@@ -1,7 +1,6 @@
-package com.weather.controller;
+package com.weather.commons.controller;
 
-import com.weather.session.models.Session;
-import com.weather.user.models.User;
+import com.weather.session.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;

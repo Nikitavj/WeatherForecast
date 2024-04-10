@@ -1,4 +1,4 @@
-package com.weather.user.models;
+package com.weather.user;
 
 import jakarta.persistence.*;
 import lombok.*;

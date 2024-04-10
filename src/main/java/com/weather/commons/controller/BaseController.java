@@ -1,7 +1,7 @@
-package com.weather.controller;
+package com.weather.commons.controller;
 
-import com.weather.services.AccountService;
-import com.weather.services.AccountServiceImpl;
+import com.weather.account.AccountService;
+import com.weather.account.AccountServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,13 +1,15 @@
 package com.weather.services;
 
+import com.weather.account.AccountService;
+import com.weather.account.AccountServiceImpl;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
-import com.weather.session.dao.SessionDao;
-import com.weather.session.dao.SessionDaoImpl;
-import com.weather.session.models.Session;
-import com.weather.user.dao.UserDao;
-import com.weather.user.dao.UserDaoImpl;
-import com.weather.user.models.User;
+import com.weather.session.SessionDao;
+import com.weather.session.SessionDaoImpl;
+import com.weather.session.Session;
+import com.weather.user.UserDao;
+import com.weather.user.UserDaoImpl;
+import com.weather.user.User;
 import com.weather.utils.HibernateUtils;
 import com.weather.utils.PropertiesUtil;
 import org.junit.jupiter.api.BeforeAll;

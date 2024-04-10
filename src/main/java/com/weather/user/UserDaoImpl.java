@@ -1,10 +1,9 @@
-package com.weather.user.dao;
+package com.weather.user;
 
-import com.weather.dao.BaseDao;
+import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.utils.HibernateUtils;
-import com.weather.user.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

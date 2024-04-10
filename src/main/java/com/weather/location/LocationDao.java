@@ -1,8 +1,8 @@
-package com.weather.location.dao;
+package com.weather.location;
 
-import com.weather.dao.Dao;
-import com.weather.location.models.Location;
-import com.weather.user.models.User;
+import com.weather.commons.dao.Dao;
+import com.weather.location.Location;
+import com.weather.user.User;
 
 import java.util.List;
 import java.util.Optional;

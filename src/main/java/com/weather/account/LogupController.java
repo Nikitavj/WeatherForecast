@@ -1,24 +1,28 @@
-package com.weather.controller;
+package com.weather.account;
 
+import com.weather.commons.controller.BaseController;
+import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
+import com.weather.utils.LogupValidatorUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.thymeleaf.context.IContext;
 import org.thymeleaf.context.WebContext;
 
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet("/login")
-public class LoginController extends BaseController {
+@WebServlet("/logup")
+public class LogupController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        WebContext ctx = buildWebContext(req, resp);
-        templateEngine.process("login", ctx, resp.getWriter());
+        IContext ctx = buildWebContext(req, resp);
+        templateEngine.process("logup", ctx, resp.getWriter());
     }
 
     @Override
@@ -26,20 +30,23 @@ public class LoginController extends BaseController {
 
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
+        String repeatPassword = req.getParameter("repeatPassword");
 
         try {
-            UUID uuidSession = accountService.login(userName, password);
+            LogupValidatorUtil.validLogup(userName, password, repeatPassword);
+            UUID uuidSession = accountService.logup(userName, password);
 
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);
 
             resp.sendRedirect("/home");
 
-        } catch (InvalidLoginException e) {
+        } catch (InvalidLoginException
+                 | EntityDuplicationException e) {
             WebContext ctx = buildWebContext(req, resp);
             ctx.setVariable("userName", userName);
             ctx.setVariable("error", e.getMessage());
-            templateEngine.process("login", ctx, resp.getWriter());
+            templateEngine.process("logup", ctx, resp.getWriter());
         }
     }
 }

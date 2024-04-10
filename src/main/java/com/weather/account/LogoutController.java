@@ -1,6 +1,7 @@
-package com.weather.controller;
+package com.weather.account;
 
-import com.weather.session.models.Session;
+import com.weather.commons.controller.BaseController;
+import com.weather.session.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -11,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/logout")
-public class LogoutController extends BaseController{
+public class LogoutController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,14 +1,9 @@
 package com.weather;
 
-import com.weather.location.models.Location;
-import com.weather.location.dao.LocationDaoImpl;
-import com.weather.session.models.Session;
-import com.weather.session.dao.SessionDaoImpl;
-import com.weather.user.models.User;
-import com.weather.user.dao.UserDao;
-import com.weather.user.dao.UserDaoImpl;
+import com.weather.user.User;
+import com.weather.user.UserDao;
+import com.weather.user.UserDaoImpl;
 
-import java.time.LocalDateTime;
 public class App {
     public static void main(String[] args) {
         User user1 = new User("Blazer", "root1");

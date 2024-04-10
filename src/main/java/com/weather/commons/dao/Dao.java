@@ -1,4 +1,4 @@
-package com.weather.dao;
+package com.weather.commons.dao;
 
 import java.util.List;
 

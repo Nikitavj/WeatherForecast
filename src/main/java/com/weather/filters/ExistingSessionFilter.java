@@ -1,8 +1,8 @@
 package com.weather.filters;
 
-import com.weather.services.AccountService;
-import com.weather.services.AccountServiceImpl;
-import com.weather.session.models.Session;
+import com.weather.account.AccountService;
+import com.weather.account.AccountServiceImpl;
+import com.weather.session.Session;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

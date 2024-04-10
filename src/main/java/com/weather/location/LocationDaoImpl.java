@@ -1,11 +1,10 @@
-package com.weather.location.dao;
+package com.weather.location;
 
-import com.weather.dao.BaseDao;
+import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.utils.HibernateUtils;
-import com.weather.location.models.Location;
-import com.weather.user.models.User;
+import com.weather.user.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -78,4 +77,5 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
             throw new DatabaseException(e.getMessage());
         }
     }
+
 }
