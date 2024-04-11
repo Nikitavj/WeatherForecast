@@ -30,7 +30,7 @@ public class LocationController extends BaseController {
 
         LocationValidatorUtil.validateCityName(name);
 
-        List<Location> locations = forecastService.searchLocationByCityName(name);
+        List<LocationDto> locations = forecastService.searchLocationByCityName(name);
 
 
         context.setVariable("locations", locations);
