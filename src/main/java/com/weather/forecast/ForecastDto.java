@@ -1,4 +1,4 @@
-package com.weather.forecastapi;
+package com.weather.forecast;
 
 import lombok.Data;
 

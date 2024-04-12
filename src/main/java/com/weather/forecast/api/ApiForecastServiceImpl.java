@@ -1,4 +1,4 @@
-package com.weather.forecastapi;
+package com.weather.forecast.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weather.exception.ApiWeatherErrorException;
 import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.exception.ErrorApi;
-import com.weather.location.Location;
+import com.weather.forecast.ForecastDto;
 import com.weather.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
 
@@ -55,7 +55,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     @Override
     public ForecastDto searchForecastByLocation(LocationDto location) {
 
-        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&la=%s&lon=%s&appid=%s",
+        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s",
                 location.getLat(),
                 location.getLon(),
                 apiKey);

@@ -1,5 +1,6 @@
-package com.weather.forecastapi;
+package com.weather.forecast.api;
 
+import com.weather.forecast.ForecastDto;
 import com.weather.location.LocationDto;
 
 import java.util.List;
