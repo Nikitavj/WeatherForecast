@@ -3,6 +3,9 @@ package com.weather.forecastapi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weather.exception.ApiWeatherErrorException;
+import com.weather.exception.ApiWeatherNotFoundException;
+import com.weather.exception.ErrorApi;
 import com.weather.location.Location;
 import com.weather.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
@@ -17,19 +20,30 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ApiForecastServiceImpl implements ApiForecastService {
-    private String apiKey = PropertiesUtil.getProperty("weatherApyKey");
+    private HttpClient httpClient;
+    private static String apiKey;
+    private static ObjectMapper objectMapper;
+
+    static {
+        apiKey = PropertiesUtil.getProperty("weatherApyKey");
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    public ApiForecastServiceImpl(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
     @Override
-    public List<LocationDto> searchLocationByCityName(String nameCity) {
+    public List<LocationDto> searchLocationByName(LocationDto location) {
 
         String uri = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=5&appid=%s",
-                nameCity,
+                location.getName(),
                 apiKey);
 
         String json = sendApiRequest(uri);
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             LocationDto[] locations = objectMapper.readValue(json, LocationDto[].class);
             return Arrays.asList(locations);
 
@@ -41,7 +55,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     @Override
     public ForecastDto searchForecastByLocation(LocationDto location) {
 
-        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s",
+        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&la=%s&lon=%s&appid=%s",
                 location.getLat(),
                 location.getLon(),
                 apiKey);
@@ -49,8 +63,6 @@ public class ApiForecastServiceImpl implements ApiForecastService {
         String json = sendApiRequest(uri);
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             return objectMapper.readValue(json, ForecastDto.class);
 
         } catch (JsonProcessingException e) {
@@ -65,10 +77,19 @@ public class ApiForecastServiceImpl implements ApiForecastService {
                     .GET()
                     .build();
 
-            HttpResponse<String> response = HttpClient
-                    .newBuilder()
-                    .build()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            int status = response.statusCode();
+
+            if (status/100 == 4) {
+                ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
+                throw new ApiWeatherNotFoundException(e.getMessage());
+            }
+
+            if (status/100 == 5) {
+                ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
+                throw new ApiWeatherErrorException(e.getMessage());
+            }
 
             return response.body();
 
@@ -81,3 +102,4 @@ public class ApiForecastServiceImpl implements ApiForecastService {
         }
     }
 }
+

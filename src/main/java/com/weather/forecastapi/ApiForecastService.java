@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ApiForecastService {
 
-    List<LocationDto> searchLocationByCityName(String name);
+    List<LocationDto> searchLocationByName(LocationDto location);
 
     ForecastDto searchForecastByLocation(LocationDto location);
 
