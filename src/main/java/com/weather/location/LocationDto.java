@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class LocationDto {
     private String name;
     private double lat;

@@ -14,4 +14,6 @@ public interface LocationDao extends Dao<Location> {
     Optional<Location> findByName(String locName);
 
     List<Location> findAllByUser(User user);
+
+    void deleteByLatLonForUser(User user, double lat, double lon);
 }

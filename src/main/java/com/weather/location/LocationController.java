@@ -1,8 +1,6 @@
 package com.weather.location;
 
 import com.weather.commons.controller.BaseController;
-import com.weather.forecastapi.ApiForecastService;
-import com.weather.forecastapi.ApiForecastServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +13,6 @@ import java.util.List;
 @WebServlet("/search-location")
 public class LocationController extends BaseController {
 
-    ApiForecastService forecastService = new ApiForecastServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,8 +27,9 @@ public class LocationController extends BaseController {
 
         LocationValidatorUtil.validateCityName(name);
 
-        List<LocationDto> locations = forecastService.searchLocationByCityName(name);
+        LocationDto locationDto = LocationDto.builder().name(name).build();
 
+        List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
 
         context.setVariable("locations", locations);
 
