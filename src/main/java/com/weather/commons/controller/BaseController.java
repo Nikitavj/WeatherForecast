@@ -2,8 +2,9 @@ package com.weather.commons.controller;
 
 import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
-import com.weather.forecastapi.ApiForecastService;
-import com.weather.forecastapi.ApiForecastServiceImpl;
+import com.weather.forecast.api.ApiForecastService;
+import com.weather.forecast.api.ApiForecastServiceImpl;
+import com.weather.utils.HttpClientUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class BaseController extends HttpServlet {
                 .getAttribute("templateEngine");
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
         accountService = new AccountServiceImpl();
-        apiForecastService = new ApiForecastServiceImpl(HttpClient.newBuilder().build());
+        apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
     }
 
     public WebContext buildWebContext(HttpServletRequest req, HttpServletResponse resp) {

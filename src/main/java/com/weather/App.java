@@ -1,15 +1,13 @@
 package com.weather;
 
-import com.weather.forecastapi.ApiForecastService;
-import com.weather.forecastapi.ApiForecastServiceImpl;
-import com.weather.forecastapi.ForecastDto;
+import com.weather.forecast.ForecastDto;
+import com.weather.forecast.service.ForecastServiceImpl;
 import com.weather.location.LocationDto;
 import com.weather.location.LocationServiceImpl;
 import com.weather.user.User;
 import com.weather.user.UserDao;
 import com.weather.user.UserDaoImpl;
 
-import java.net.http.HttpClient;
 import java.util.List;
 
 public class App {
@@ -19,15 +17,28 @@ public class App {
         User user = new User("A", "B");
         userDao.save(user);
 
+        user = userDao.findByName("A").get();
+
         LocationServiceImpl locationService = new LocationServiceImpl();
 
         List<LocationDto> locations = locationService.searchLocation(LocationDto.builder().name("London").build());
+        locationService.addLocationToUser(locations.get(0), user);
 
-        locationService.addLocationToUser(locations.get(0), userDao.findByName("A").get());
+        locations = locationService.searchLocation(LocationDto.builder().name("Moscow").build());
+        locationService.addLocationToUser(locations.get(0), user);
 
-        System.out.println(locations);
+        locations = locationService.searchLocation(LocationDto.builder().name("Perm").build());
+        locationService.addLocationToUser(locations.get(0), user);
 
-        locationService.deleteLocationOfUser(locations.get(0), userDao.findByName("A").get());
+
+        ForecastServiceImpl forecastService = new ForecastServiceImpl();
+
+        List<ForecastDto> forecasts = forecastService.getForecastsForUser(user);
+
+        for (ForecastDto f: forecasts) {
+            System.out.println(f);
+        }
+
 
     }
 }

@@ -1,14 +1,14 @@
 package com.weather.location;
 
-import com.weather.forecastapi.ApiForecastServiceImpl;
+import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.user.User;
+import com.weather.utils.HttpClientUtil;
 
 import java.net.http.HttpClient;
 import java.util.List;
 
 public class LocationServiceImpl implements LocationService {
-    private HttpClient httpClient = HttpClient.newBuilder().build();
-    private ApiForecastServiceImpl forecastService = new ApiForecastServiceImpl(httpClient);
+    private ApiForecastServiceImpl apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
     private LocationDao locationDao = new LocationDaoImpl();
 
     @Override
@@ -31,6 +31,6 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<LocationDto> searchLocation(LocationDto location) {
 
-        return forecastService.searchLocationByName(location);
+        return apiForecastService.searchLocationByName(location);
     }
 }
