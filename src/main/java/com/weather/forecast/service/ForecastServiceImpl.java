@@ -10,7 +10,6 @@ import com.weather.location.LocationDto;
 import com.weather.user.User;
 import com.weather.utils.HttpClientUtil;
 
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,7 @@ public class ForecastServiceImpl implements ForecastService {
 
         List<Location> locations = locationDao.findAllByUser(user);
 
+        int numberInList = 0;
         for (Location l: locations) {
             ForecastDto forecast = apiForecastService.searchForecastByLocation(LocationDto
                     .builder()
@@ -32,6 +32,7 @@ public class ForecastServiceImpl implements ForecastService {
                     .build());
 
             if (forecasts != null) {
+                forecast.setId(numberInList++);
                 forecasts.add(forecast);
             }
         }

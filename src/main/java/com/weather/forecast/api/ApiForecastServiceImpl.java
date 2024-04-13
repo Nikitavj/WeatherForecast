@@ -2,6 +2,7 @@ package com.weather.forecast.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weather.exception.ApiWeatherErrorException;
 import com.weather.exception.ApiWeatherNotFoundException;
@@ -11,8 +12,10 @@ import com.weather.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -37,16 +40,20 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     @Override
     public List<LocationDto> searchLocationByName(LocationDto location) {
 
-        String uri = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=5&appid=%s",
-                location.getName(),
-                apiKey);
-
-        String json = sendApiRequest(uri);
-
         try {
+            String urlName = URLEncoder.encode(location.getName(), "UTF-8");
+            String uri = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=5&appid=%s",
+                    urlName,
+                    apiKey);
+
+            String json = sendApiRequest(uri);
             LocationDto[] locations = objectMapper.readValue(json, LocationDto[].class);
             return Arrays.asList(locations);
 
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +62,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     @Override
     public ForecastDto searchForecastByLocation(LocationDto location) {
 
-        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s",
+        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
                 location.getLat(),
                 location.getLon(),
                 apiKey);

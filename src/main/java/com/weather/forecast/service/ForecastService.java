@@ -5,7 +5,7 @@ import com.weather.user.User;
 
 import java.util.List;
 
-interface ForecastService {
+public interface ForecastService {
 
     List<ForecastDto> getForecastsForUser(User user);
 }

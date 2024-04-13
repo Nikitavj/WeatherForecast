@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Locations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<form action='/locations' method='POST'>
+    <label>Поиск локации:</label>
+    <input type='text' id='locationname' name='name'>
+
+    <input type='submit' value='Найти'>
+</form>
+
+<div class="location" th:each="location : ${locations}">
+    <div th:text="${location.getName()}">Name Location</div>
+    <div th:text="${location.getCountry()}">Country</div>
+    <div th:text="${location.getState()}">State</div>
+
+
+    <div>
+    <form action='/location' method='POST'>
+        <input type=hidden name='latitude' th:value="${location.getLat()}">
+        <input type=hidden name='longitude' th:value="${location.getLon()}">
+        <input type=hidden name='name' th:value="${location.getName()}">
+        <input type='submit' value='Добавить'>
+    </form>
+    </div>
+    <br>
+</div>
+
+</body>
+</html>

@@ -10,6 +10,7 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 public class LocationDto {
+    private int numberLocForUser;
     private String name;
     private double lat;
     private double lon;

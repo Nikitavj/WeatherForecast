@@ -4,6 +4,10 @@ import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
+import com.weather.forecast.service.ForecastService;
+import com.weather.forecast.service.ForecastServiceImpl;
+import com.weather.location.LocationService;
+import com.weather.location.LocationServiceImpl;
 import com.weather.utils.HttpClientUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +24,8 @@ public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;
     protected JakartaServletWebApplication application;
     protected AccountService accountService;
-    protected ApiForecastService apiForecastService;
+    protected ForecastService forecastService;
+    protected LocationService locationService;
 
 
 
@@ -30,7 +35,8 @@ public class BaseController extends HttpServlet {
                 .getAttribute("templateEngine");
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
         accountService = new AccountServiceImpl();
-        apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
+        forecastService = new ForecastServiceImpl();
+        locationService = new LocationServiceImpl();
     }
 
     public WebContext buildWebContext(HttpServletRequest req, HttpServletResponse resp) {

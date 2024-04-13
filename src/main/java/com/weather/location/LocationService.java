@@ -4,7 +4,7 @@ import com.weather.user.User;
 
 import java.util.List;
 
-interface LocationService {
+public interface LocationService {
 
     void addLocationToUser (LocationDto location, User user);
     

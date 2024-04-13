@@ -77,25 +77,4 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
             throw new DatabaseException(e.getMessage());
         }
     }
-
-    @Override
-    public void deleteByLatLonForUser(User user, double lat, double lon) {
-        try (Session session = sessionFactory.openSession()) {
-            Location location = (Location) session.createQuery("from Location where user = :user and latitude =:lat and longitude =:lon")
-                    .setParameter("user", user)
-                    .setParameter("lat", lat)
-                    .setParameter("lon", lon)
-                    .getSingleResultOrNull();
-
-            if (location != null) {
-                session.beginTransaction();
-                session.remove(location);
-                session.getTransaction().commit();
-            }
-
-        } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
-            throw new DatabaseException(e.getMessage());
-        }
-    }
 }

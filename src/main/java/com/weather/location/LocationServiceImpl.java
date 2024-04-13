@@ -4,7 +4,6 @@ import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.user.User;
 import com.weather.utils.HttpClientUtil;
 
-import java.net.http.HttpClient;
 import java.util.List;
 
 public class LocationServiceImpl implements LocationService {
@@ -23,9 +22,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void deleteLocationOfUser(LocationDto location, User user) {
+    public void deleteLocationOfUser(LocationDto locationDto, User user) {
 
-        locationDao.deleteByLatLonForUser(user, location.getLat(), location.getLon());
+        List<Location> list = locationDao.findAllByUser(user);
+        Location location = list.get(locationDto.getNumberLocForUser());
+        locationDao.delete(location);
     }
 
     @Override
