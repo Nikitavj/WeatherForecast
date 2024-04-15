@@ -21,11 +21,11 @@
 
 <br>
 
-<p th:text="${user}"></p>
+<span th:text="${user.getLogin()}"></span>
 
 <br>
 
-<form action='/locations' method='POST'>
+<form action='/locations' method='GET'>
     <label for='username'>Поиск локации:</label>
     <input type='text' id='username' name='name'>
 
@@ -46,7 +46,7 @@
     <div>Влажн: <span th:text="${forecast.getMain().getHumidity()}">Humidity</span></div>
     <div>C/B: <span th:text="${forecast.getWind().getSpeed()}">Humidity</span></div>
     <div>
-        <form action='/location/delete' method='post'>
+        <form action='/locations/delete' method='post'>
             <input type=hidden name='numberLocationforUser' th:value="${forecast.getId()}">
             <input type='submit' value='Delete'>
         </form>

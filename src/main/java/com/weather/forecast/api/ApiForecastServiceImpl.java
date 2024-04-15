@@ -50,11 +50,8 @@ public class ApiForecastServiceImpl implements ApiForecastService {
             LocationDto[] locations = objectMapper.readValue(json, LocationDto[].class);
             return Arrays.asList(locations);
 
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
+        } catch (UnsupportedEncodingException
+                 | JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -100,11 +97,9 @@ public class ApiForecastServiceImpl implements ApiForecastService {
 
             return response.body();
 
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (URISyntaxException
+                 | InterruptedException
+                 | IOException e) {
             throw new RuntimeException(e);
         }
     }
