@@ -2,6 +2,7 @@ package com.weather.forecast;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,6 +13,8 @@ public class ForecastDto {
     private List<Weather> weather;
     private Main main;
     private Wind wind;
+    private List<WeatherList> list;
+    private City city;
 }
 
 @Data
@@ -40,4 +43,19 @@ class Wind {
     private double speed;
     private double deg;
     private double gust;
+}
+
+@Data
+class WeatherList {
+    private Main main;
+    private List<Weather> weather;
+    private Wind wind;
+    private String dt_txt;
+}
+
+@Data
+class City {
+    private int id;
+    private String name;
+    private Coord coord;
 }

@@ -2,13 +2,10 @@ package com.weather.commons.controller;
 
 import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
-import com.weather.forecast.api.ApiForecastService;
-import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.service.ForecastService;
 import com.weather.forecast.service.ForecastServiceImpl;
 import com.weather.location.LocationService;
 import com.weather.location.LocationServiceImpl;
-import com.weather.utils.HttpClientUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +14,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
-
-import java.net.http.HttpClient;
 
 public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;

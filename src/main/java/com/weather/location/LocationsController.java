@@ -21,7 +21,7 @@ public class LocationsController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        WebContext context = buildWebContext(req, resp);
+        WebContext ctx = buildWebContext(req, resp);
 
         String name = req.getParameter("name");
 
@@ -32,18 +32,17 @@ public class LocationsController extends BaseController {
                 LocationDto locationDto = LocationDto.builder().name(name).build();
                 List<LocationDto> locations = locationService.searchLocation(locationDto);
 
-                context.setVariable("locations", locations);
+                ctx.setVariable("locations", locations);
 
             } catch (InvalidLocationRequestException
                      | ApiWeatherErrorException
                      | ApiWeatherNotFoundException e) {
-                context.setVariable("error", e.getMessage());
-                context.setVariable("nameLocation", name);
-                templateEngine.process("locations", context, resp.getWriter());
+                ctx.setVariable("error", e.getMessage());
+                ctx.setVariable("nameLocation", name);
             }
         }
 
-        templateEngine.process("locations", context, resp.getWriter());
+        templateEngine.process("locations", ctx, resp.getWriter());
     }
 
     @Override
@@ -67,8 +66,16 @@ public class LocationsController extends BaseController {
             } catch (InvalidLocationRequestException
                      | EntityDuplicationException
                      | DatabaseException e) {
+                WebContext ctx = buildWebContext(req, resp);
+                ctx.setVariable("error", e.getMessage());
+                templateEngine.process("locations", ctx, resp.getWriter());
+                return;
 
             } catch (NumberFormatException e) {
+                WebContext ctx = buildWebContext(req, resp);
+                ctx.setVariable("error", "Неверный формат параметров latitude, longitude");
+                templateEngine.process("locations", ctx, resp.getWriter());
+                return;
 
             }
             resp.sendRedirect("/home");

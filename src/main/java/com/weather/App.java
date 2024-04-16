@@ -1,44 +1,36 @@
 package com.weather;
 
 import com.weather.forecast.ForecastDto;
+import com.weather.forecast.api.ApiForecastService;
+import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.service.ForecastServiceImpl;
 import com.weather.location.LocationDto;
 import com.weather.location.LocationServiceImpl;
 import com.weather.user.User;
 import com.weather.user.UserDao;
 import com.weather.user.UserDaoImpl;
+import com.weather.utils.HttpClientUtil;
 
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
 
-        UserDao userDao = new UserDaoImpl();
-        User user = new User("A", "B");
-        userDao.save(user);
+        ApiForecastService apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
 
-        user = userDao.findByName("A").get();
+        LocationDto locationDto = LocationDto.builder().name("London").build();
+        locationDto = apiForecastService.searchLocationByName(locationDto).get(0);
+        ForecastDto forecastDto = apiForecastService.searchHourlyForecastByLocation(locationDto);
 
-        LocationServiceImpl locationService = new LocationServiceImpl();
-
-        List<LocationDto> locations = locationService.searchLocation(LocationDto.builder().name("London").build());
-        locationService.addLocationToUser(locations.get(0), user);
-
-        locations = locationService.searchLocation(LocationDto.builder().name("Moscow").build());
-        locationService.addLocationToUser(locations.get(0), user);
-
-        locations = locationService.searchLocation(LocationDto.builder().name("Perm").build());
-        locationService.addLocationToUser(locations.get(0), user);
+        System.out.println(forecastDto);
 
 
-        ForecastServiceImpl forecastService = new ForecastServiceImpl();
-
-        List<ForecastDto> forecasts = forecastService.getForecastsForUser(user);
-
-        for (ForecastDto f: forecasts) {
-            System.out.println(f);
-        }
-
-
+//        ApiForecastService apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
+//
+//        LocationDto locationDto = LocationDto.builder().name("London").build();
+//        locationDto = apiForecastService.searchLocationByName(locationDto).get(0);
+//        ForecastDto forecastDto = apiForecastService.searchCurrentForecastByLocation(locationDto);
+//
+//        System.out.println(forecastDto);
     }
 }

@@ -9,6 +9,8 @@ public interface ApiForecastService {
 
     List<LocationDto> searchLocationByName(LocationDto location);
 
-    ForecastDto searchForecastByLocation(LocationDto location);
+    ForecastDto searchCurrentForecastByLocation(LocationDto location);
+
+    ForecastDto searchHourlyForecastByLocation(LocationDto location);
 
 }

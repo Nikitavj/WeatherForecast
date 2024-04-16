@@ -57,9 +57,27 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     }
 
     @Override
-    public ForecastDto searchForecastByLocation(LocationDto location) {
+    public ForecastDto searchCurrentForecastByLocation(LocationDto location) {
 
         String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
+                location.getLat(),
+                location.getLon(),
+                apiKey);
+
+        String json = sendApiRequest(uri);
+
+        try {
+            return objectMapper.readValue(json, ForecastDto.class);
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ForecastDto searchHourlyForecastByLocation(LocationDto location) {
+
+        String uri = String.format("https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
                 location.getLat(),
                 location.getLon(),
                 apiKey);

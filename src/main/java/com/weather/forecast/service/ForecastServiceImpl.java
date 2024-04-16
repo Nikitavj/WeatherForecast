@@ -25,7 +25,7 @@ public class ForecastServiceImpl implements ForecastService {
 
         int numberInList = 0;
         for (Location l: locations) {
-            ForecastDto forecast = apiForecastService.searchForecastByLocation(LocationDto
+            ForecastDto forecast = apiForecastService.searchCurrentForecastByLocation(LocationDto
                     .builder()
                     .lat(l.getLatitude())
                     .lon(l.getLongitude())
