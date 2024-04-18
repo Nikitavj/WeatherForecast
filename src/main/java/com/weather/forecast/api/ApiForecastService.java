@@ -1,6 +1,7 @@
 package com.weather.forecast.api;
 
-import com.weather.forecast.ForecastDto;
+import com.weather.forecast.dto.CurrentForecastDto;
+import com.weather.forecast.dto.HourlyForecastDTO;
 import com.weather.location.LocationDto;
 
 import java.util.List;
@@ -9,8 +10,8 @@ public interface ApiForecastService {
 
     List<LocationDto> searchLocationByName(LocationDto location);
 
-    ForecastDto searchCurrentForecastByLocation(LocationDto location);
+    CurrentForecastDto searchCurrentForecastByLocation(LocationDto location);
 
-    ForecastDto searchHourlyForecastByLocation(LocationDto location);
+    HourlyForecastDTO searchHourlyForecastByLocation(LocationDto location);
 
 }

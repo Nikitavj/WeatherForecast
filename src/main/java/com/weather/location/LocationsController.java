@@ -30,8 +30,9 @@ public class LocationsController extends BaseController {
                 LocationValidatorUtil.validateNameLocation(name);
 
                 LocationDto locationDto = LocationDto.builder().name(name).build();
-                List<LocationDto> locations = locationService.searchLocation(locationDto);
+//                List<LocationDto> locations = locationService.searchLocationByName(locationDto);
 
+                List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
 
             } catch (InvalidLocationRequestException
@@ -90,12 +91,12 @@ public class LocationsController extends BaseController {
 
         if (session != null) {
             User user = session.getUser();
-            String numberLocforUser = req.getParameter("numberLocationforUser");
-            int numberLoc = Integer.parseInt(numberLocforUser);
+            String id = req.getParameter("id");
+            int idLoc = Integer.parseInt(id);
 
             LocationDto locationDto = LocationDto
                     .builder()
-                    .numberLocForUser(numberLoc)
+                    .id(idLoc)
                     .build();
 
             locationService.deleteLocationOfUser(locationDto, user);

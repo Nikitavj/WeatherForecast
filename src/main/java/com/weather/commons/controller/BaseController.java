@@ -2,10 +2,13 @@ package com.weather.commons.controller;
 
 import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
+import com.weather.forecast.api.ApiForecastService;
+import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.service.ForecastService;
 import com.weather.forecast.service.ForecastServiceImpl;
 import com.weather.location.LocationService;
 import com.weather.location.LocationServiceImpl;
+import com.weather.utils.HttpClientUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +22,9 @@ public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;
     protected JakartaServletWebApplication application;
     protected AccountService accountService;
-    protected ForecastService forecastService;
+//    protected ForecastService forecastService;
+    protected ApiForecastService apiForecastService;
+
     protected LocationService locationService;
 
 
@@ -30,7 +35,8 @@ public class BaseController extends HttpServlet {
                 .getAttribute("templateEngine");
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
         accountService = new AccountServiceImpl();
-        forecastService = new ForecastServiceImpl();
+        apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
+//        forecastService = new ForecastServiceImpl();
         locationService = new LocationServiceImpl();
     }
 

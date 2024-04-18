@@ -34,20 +34,20 @@
 
 <br>
 
-<div class="forecast" th:each="forecast : ${forecasts}">
+<div class="forecast" th:each="location : ${locations}">
 
-    <div><span th:text="${forecast.getName()}">Location</span></div>
+    <div><span th:text="${location.getCurrentForecastDto().getName()}">Location</span></div>
     <img src="https://openweathermap.org/img/wn/10d@2x.png"
-         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=${forecast.getWeather().get(0).getIcon()})}" />
+         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=${location.getCurrentForecastDto().getWeather().get(0).getIcon()})}" />
 
-    <div><span th:text="${forecast.getWeather().get(0).getMain()}">Weather</span></div>
-    <div>Темп: <span th:text="${forecast.getMain().getTemp()}">Temp</span></div>
-    <div>Давл: <span th:text="${forecast.getMain().getPressure()}">Pressure</span></div>
-    <div>Влажн: <span th:text="${forecast.getMain().getHumidity()}">Humidity</span></div>
-    <div>C/B: <span th:text="${forecast.getWind().getSpeed()}">Humidity</span></div>
+    <div><span th:text="${location.getCurrentForecastDto().getWeather().get(0).getMain()}">Weather</span></div>
+    <div>Темп: <span th:text="${location.getCurrentForecastDto().getMain().getTemp()}">Temp</span></div>
+    <div>Давл: <span th:text="${location.getCurrentForecastDto().getMain().getPressure()}">Pressure</span></div>
+    <div>Влажн: <span th:text="${location.getCurrentForecastDto().getMain().getHumidity()}">Humidity</span></div>
+    <div>C/B: <span th:text="${location.getCurrentForecastDto().getWind().getSpeed()}">Humidity</span></div>
     <div>
         <form action='/locations/delete' method='post'>
-            <input type=hidden name='numberLocationforUser' th:value="${forecast.getId()}">
+            <input type=hidden name='id' th:value="${location.getId()}">
             <input type='submit' value='Delete'>
         </form>
     </div>

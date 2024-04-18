@@ -2,12 +2,12 @@ package com.weather.forecast.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weather.exception.ApiWeatherErrorException;
 import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.exception.ErrorApi;
-import com.weather.forecast.ForecastDto;
+import com.weather.forecast.dto.CurrentForecastDto;
+import com.weather.forecast.dto.HourlyForecastDTO;
 import com.weather.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
 
@@ -57,7 +57,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     }
 
     @Override
-    public ForecastDto searchCurrentForecastByLocation(LocationDto location) {
+    public CurrentForecastDto searchCurrentForecastByLocation(LocationDto location) {
 
         String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
                 location.getLat(),
@@ -67,7 +67,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
         String json = sendApiRequest(uri);
 
         try {
-            return objectMapper.readValue(json, ForecastDto.class);
+            return objectMapper.readValue(json, CurrentForecastDto.class);
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -75,7 +75,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     }
 
     @Override
-    public ForecastDto searchHourlyForecastByLocation(LocationDto location) {
+    public HourlyForecastDTO searchHourlyForecastByLocation(LocationDto location) {
 
         String uri = String.format("https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
                 location.getLat(),
@@ -85,7 +85,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
         String json = sendApiRequest(uri);
 
         try {
-            return objectMapper.readValue(json, ForecastDto.class);
+            return objectMapper.readValue(json, HourlyForecastDTO.class);
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

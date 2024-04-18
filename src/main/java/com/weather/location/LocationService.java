@@ -10,5 +10,7 @@ public interface LocationService {
     
     void deleteLocationOfUser (LocationDto location, User user);
 
-    List<LocationDto> searchLocation (LocationDto location);
+//    List<LocationDto> searchLocationByName(LocationDto location);
+
+    List<LocationDto> getUsersLocations (User user);
 }

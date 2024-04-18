@@ -1,6 +1,6 @@
 package com.weather.commons.controller;
 
-import com.weather.forecast.ForecastDto;
+import com.weather.location.LocationDto;
 import com.weather.session.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,9 +23,10 @@ public class HomeController extends BaseController {
         Session sessionOfUser = (Session) session.getAttribute("session");
 
         if (sessionOfUser != null) {
-            List<ForecastDto> forecasts = forecastService.getForecastsForUser(sessionOfUser.getUser());
 
-            context.setVariable("forecasts", forecasts);
+            List<LocationDto> locations = locationService.getUsersLocations(sessionOfUser.getUser());
+
+            context.setVariable("locations", locations);
             context.setVariable("user", sessionOfUser.getUser());
         }
 

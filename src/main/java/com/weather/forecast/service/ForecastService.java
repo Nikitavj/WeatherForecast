@@ -1,11 +1,11 @@
 package com.weather.forecast.service;
 
-import com.weather.forecast.ForecastDto;
-import com.weather.user.User;
+import com.weather.location.Location;
+import com.weather.location.LocationDto;
 
 import java.util.List;
 
 public interface ForecastService {
 
-    List<ForecastDto> getForecastsForUser(User user);
+    List<LocationDto> getForecastsForLocations(List<Location> locations);
 }

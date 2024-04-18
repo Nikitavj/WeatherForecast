@@ -1,9 +1,11 @@
 package com.weather.location;
 
+import com.weather.forecast.dto.CurrentForecastDto;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.user.User;
 import com.weather.utils.HttpClientUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationServiceImpl implements LocationService {
@@ -25,13 +27,33 @@ public class LocationServiceImpl implements LocationService {
     public void deleteLocationOfUser(LocationDto locationDto, User user) {
 
         List<Location> list = locationDao.findAllByUser(user);
-        Location location = list.get(locationDto.getNumberLocForUser());
+        Location location = list.get(locationDto.getId());
         locationDao.delete(location);
     }
 
     @Override
-    public List<LocationDto> searchLocation(LocationDto location) {
+    public List<LocationDto> getUsersLocations(User user) {
+        List<LocationDto> locationDtoList = new ArrayList<>();
 
-        return apiForecastService.searchLocationByName(location);
+        List<Location> locations = locationDao.findAllByUser(user);
+
+        int count = 0;
+
+        for (Location l: locations) {
+            LocationDto locationDto = LocationDto
+                    .builder()
+                    .lat(l.getLatitude())
+                    .lon(l.getLongitude())
+                    .build();
+
+            CurrentForecastDto forecast = apiForecastService.searchCurrentForecastByLocation(locationDto);
+
+            if (forecast != null) {
+                locationDto.setCurrentForecastDto(forecast);
+                locationDto.setId(count++);
+                locationDtoList.add(locationDto);
+            }
+        }
+        return locationDtoList;
     }
 }
