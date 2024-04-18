@@ -56,4 +56,14 @@ public class LocationServiceImpl implements LocationService {
         }
         return locationDtoList;
     }
+
+    public LocationDto getLocationByIdForUser(int idLocation, User user) {
+
+        Location location = locationDao.getByNumber(idLocation, user);
+        return LocationDto
+                .builder()
+                .lat(location.getLatitude())
+                .lon(location.getLongitude())
+                .build();
+    }
 }

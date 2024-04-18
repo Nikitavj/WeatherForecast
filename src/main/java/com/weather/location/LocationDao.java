@@ -14,4 +14,6 @@ public interface LocationDao extends Dao<Location> {
     Optional<Location> findByName(String locName);
 
     List<Location> findAllByUser(User user);
+
+    Location getByNumber(int number, User user);
 }

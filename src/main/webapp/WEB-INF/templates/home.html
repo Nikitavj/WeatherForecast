@@ -46,6 +46,12 @@
     <div>Влажн: <span th:text="${location.getCurrentForecastDto().getMain().getHumidity()}">Humidity</span></div>
     <div>C/B: <span th:text="${location.getCurrentForecastDto().getWind().getSpeed()}">Humidity</span></div>
     <div>
+        <form action='/forecast' method='get'>
+            <input type=hidden name='id' th:value="${location.getId()}">
+            <input type='submit' value='Forecast'>
+        </form>
+    </div>
+    <div>
         <form action='/locations/delete' method='post'>
             <input type=hidden name='id' th:value="${location.getId()}">
             <input type='submit' value='Delete'>

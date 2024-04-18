@@ -77,4 +77,19 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    @Override
+    public Location getByNumber(int number, User user) {
+        try(Session session = sessionFactory.openSession()) {
+            return (Location) session.createQuery("from Location where user = :user")
+                    .setParameter("user", user)
+                    .setFirstResult(number)
+                    .setMaxResults(1)
+                    .getSingleResult();
+
+        } catch (HibernateException e) {
+            log.warn("Исключение БД: {}", e.getMessage());
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 }

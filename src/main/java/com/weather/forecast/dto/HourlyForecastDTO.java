@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class HourlyForecastDTO {
-    private List<WeatherList> list;
+    private List<HourlyForecast> list;
     private City city;
 }

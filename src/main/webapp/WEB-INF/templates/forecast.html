@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Forecast</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div><span th:text="${forecast.getCity().getName()}">Location</span></div>
+
+<div class="forecast" th:each="hourlyForecast : ${forecast.getList()}">
+
+    <div>Дата: <span th:text="${hourlyForecast.getDt_txt()}">Date</span></div>
+    <img src="https://openweathermap.org/img/wn/10d@2x.png"
+         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=${hourlyForecast.getWeather().get(0).getIcon()})}" />
+    <div><span th:text="${hourlyForecast.getWeather().get(0).getMain()}">Weather</span></div>
+    <div>Темп: <span th:text="${hourlyForecast.getMain().getTemp()}">Temp</span></div>
+    <div>Давл: <span th:text="${hourlyForecast.getMain().getPressure()}">Pressure</span></div>
+    <div>Влажн: <span th:text="${hourlyForecast.getMain().getHumidity()}">Humidity</span></div>
+    <div>C/B: <span th:text="${hourlyForecast.getWind().getSpeed()}">Humidity</span></div>
+
+    <br>
+</div>
+
+</body>
+
+</html>

@@ -13,4 +13,6 @@ public interface LocationService {
 //    List<LocationDto> searchLocationByName(LocationDto location);
 
     List<LocationDto> getUsersLocations (User user);
+
+    LocationDto getLocationByIdForUser(int idLocation, User user);
 }
