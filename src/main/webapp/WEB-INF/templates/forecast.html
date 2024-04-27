@@ -3,27 +3,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Forecast</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
 
-<div><span th:text="${forecast.getCity().getName()}">Location</span></div>
+<header>
+       <div class="container">
+           <div class="user">
+               <span th:text="${user.getLogin()}" th:if="${not user==null}"></span>
+           </div>
+           <nav class="navigation">
+               <a href="/home" class="nav__item">Home</a>
+               <a href="/locations" class="nav__item">Search Locations</a>
+               <a href="/login" class="nav__item" th:if="${user==null}">Login</a>
+               <a href="/logup" class="nav__item" th:if="${user==null}">Registry</a>
+               <a href="/login" class="nav__item" th:if="${not user==null}">Logout</a>
+           </nav>
+       </div>
+</header>
 
-<div class="forecast" th:each="hourlyForecast : ${forecast.getList()}">
+<main>
+    <div><span th:text="${forecast.getCity().getName()}">Location</span></div>
 
-    <div>Дата: <span th:text="${hourlyForecast.getDt_txt()}">Date</span></div>
-    <img src="https://openweathermap.org/img/wn/10d@2x.png"
-         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=${hourlyForecast.getWeather().get(0).getIcon()})}" />
-    <div><span th:text="${hourlyForecast.getWeather().get(0).getMain()}">Weather</span></div>
-    <div>Темп: <span th:text="${hourlyForecast.getMain().getTemp()}">Temp</span></div>
-    <div>Давл: <span th:text="${hourlyForecast.getMain().getPressure()}">Pressure</span></div>
-    <div>Влажн: <span th:text="${hourlyForecast.getMain().getHumidity()}">Humidity</span></div>
-    <div>C/B: <span th:text="${hourlyForecast.getWind().getSpeed()}">Humidity</span></div>
+    <div class="forecast" th:each="hourlyForecast : ${forecast.getList()}">
 
-    <br>
-</div>
+        <div>Дата: <span th:text="${hourlyForecast.getDt_txt()}">Date</span></div>
+        <img src="https://openweathermap.org/img/wn/10d@2x.png"
+             th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=${hourlyForecast.getWeather().get(0).getIcon()})}" />
+        <div><span th:text="${hourlyForecast.getWeather().get(0).getMain()}">Weather</span></div>
+        <div>Темп: <span th:text="${hourlyForecast.getMain().getTemp()}">Temp</span></div>
+        <div>Давл: <span th:text="${hourlyForecast.getMain().getPressure()}">Pressure</span></div>
+        <div>Влажн: <span th:text="${hourlyForecast.getMain().getHumidity()}">Humidity</span></div>
+        <div>C/B: <span th:text="${hourlyForecast.getWind().getSpeed()}">Humidity</span></div>
+
+        <br>
+    </div>
+</main>
+
+<footer>
+
+</footer>
+
+
 
 </body>
 

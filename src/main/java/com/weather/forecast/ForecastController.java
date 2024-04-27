@@ -2,7 +2,6 @@ package com.weather.forecast;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.forecast.dto.HourlyForecastDTO;
-import com.weather.location.Location;
 import com.weather.location.LocationDto;
 import com.weather.session.Session;
 import com.weather.user.User;
@@ -10,7 +9,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.thymeleaf.context.WebContext;
 
 import java.io.IOException;
