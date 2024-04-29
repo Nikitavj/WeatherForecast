@@ -21,6 +21,7 @@ public class LocationsController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Session session = (Session) req.getSession().getAttribute("session");
         WebContext ctx = buildWebContext(req, resp);
 
         String name = req.getParameter("name");
@@ -30,16 +31,20 @@ public class LocationsController extends BaseController {
                 LocationValidatorUtil.validateNameLocation(name);
 
                 LocationDto locationDto = LocationDto.builder().name(name).build();
-//                List<LocationDto> locations = locationService.searchLocationByName(locationDto);
 
                 List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
+
+                if (session != null) {
+                    ctx.setVariable("user", session.getUser());
+                }
 
             } catch (InvalidLocationRequestException
                      | ApiWeatherErrorException
                      | ApiWeatherNotFoundException e) {
                 ctx.setVariable("error", e.getMessage());
                 ctx.setVariable("nameLocation", name);
+                ctx.setVariable("user", session.getUser());
             }
         }
 
@@ -68,12 +73,14 @@ public class LocationsController extends BaseController {
                      | EntityDuplicationException
                      | DatabaseException e) {
                 WebContext ctx = buildWebContext(req, resp);
+                ctx.setVariable("user", session.getUser());
                 ctx.setVariable("error", e.getMessage());
                 templateEngine.process("locations", ctx, resp.getWriter());
                 return;
 
             } catch (NumberFormatException e) {
                 WebContext ctx = buildWebContext(req, resp);
+                ctx.setVariable("user", session.getUser());
                 ctx.setVariable("error", "Неверный формат параметров latitude, longitude");
                 templateEngine.process("locations", ctx, resp.getWriter());
                 return;

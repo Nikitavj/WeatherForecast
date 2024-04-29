@@ -19,12 +19,16 @@
                 Weather
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0" >
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
@@ -39,36 +43,74 @@
                     </li>
                 </ul>
             </div>
+
+            <span class="navbar-text" th:if="${user != null}">
+                <img src="images/user.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <span th:text="${user.getLogin()}"></span>
+            </span>
+
         </div>
     </nav>
 </header>
 
-<form action='/locations' method='GET'>
-    <label>Поиск локации:</label>
-    <input type='text' id='locationname' name='name'>
+<section class="main-content" style="min-height: 90vh;">
+    <div class="container d-flex flex-column align-items-center">
+        <form action='/locations' method='GET'>
+            <div class="mx-4 my-4">
+                <label class="form-location">Find Location</label>
+                <input class="border border-primary rounded-3 border-3" type='text' id='username' name='name'>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
 
-    <input type='submit' value='Найти'>
-</form>
-
-<div><label th:text="${error}"></label></div>
-<div><label th:text="${nameLocation}"></label></div>
-
-<div class="location" th:each="location : ${locations}">
-    <div th:text="${location.getName()}">Name Location</div>
-    <div th:text="${location.getCountry()}">Country</div>
-    <div th:text="${location.getState()}">State</div>
-
-
-    <div>
-    <form action='/locations' method='POST'>
-        <input type=hidden name='latitude' th:value="${location.getLat()}">
-        <input type=hidden name='longitude' th:value="${location.getLon()}">
-        <input type=hidden name='name' th:value="${location.getName()}">
-        <input type='submit' value='Добавить'>
-    </form>
+        <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <label th:text="${error}"></label>
+        </div>
     </div>
-    <br>
-</div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-2 col-sm-4" th:each="location : ${locations}"
+                 th:object="${location}">
+
+                <div class="card border border-info rounded-3 border-3" style="width: 10rem;">
+                    <img src="images/location.png" class="card-img-top">
+
+                    <div class="card-body py-1">
+                        <h5 class="card-title" th:text="*{name}">Location name</h5>
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Country: <span th:text="*{country}">Country</span></li>
+                        <li class="list-group-item">State: <span th:text="*{state}">State</span></li>
+                        <li class="list-group-item">Latitude: <span th:text="*{lat}">Latitude</span></li>
+                        <li class="list-group-item">Longitude: <span th:text="*{lon}">Longitude</span></li>
+                    </ul>
+
+                    <div class="card-body py-1">
+                        <form action='/locations' method='post' >
+                            <input type=hidden name='latitude' th:value="*{lat}">
+                            <input type=hidden name='longitude' th:value="*{lon}">
+                            <input type=hidden name='name' th:value="*{name}">
+                            <button type="submit" class="btn btn-primary my-1">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-primary">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <a href="https://github.com/Nikitavj">
+                <img class="mx-2 my-2" style="width: 40px;" src="images/git.png">
+            </a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

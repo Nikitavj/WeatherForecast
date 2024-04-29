@@ -51,6 +51,7 @@ public class LocationServiceImpl implements LocationService {
             if (forecast != null) {
                 locationDto.setCurrentForecastDto(forecast);
                 locationDto.setId(count++);
+                locationDto.setName(l.getName());
                 locationDtoList.add(locationDto);
             }
         }
@@ -64,6 +65,7 @@ public class LocationServiceImpl implements LocationService {
                 .builder()
                 .lat(location.getLatitude())
                 .lon(location.getLongitude())
+                .name(location.getName())
                 .build();
     }
 }

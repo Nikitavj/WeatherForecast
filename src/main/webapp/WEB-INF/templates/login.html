@@ -1,45 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Authentication</title>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="form_auth_block">
-    <div class="form_auth_block_content">
 
-        <p class="form_auth_block_head_text">Вход</p>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">
+                <img src="images/cloud.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                Weather
+            </a>
 
-        <form class="form_auth_style" action="/login" method="post">
 
-            <label>Введите Ваш имейл</label>
-            <input id="emailInput" type="email" th:value="${userName}" name="userName" placeholder="user@gmail.com" required >
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <br>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item" th:if="${user == null}">
+                        <a class="nav-link active" aria-current="page" href="/logup">Registration</a>
+                    </li>
+                </ul>
+            </div>
 
-            <label>Введите Ваш пароль</label>
-            <input type="password" name="password" placeholder="password" required >
+            <span class="navbar-text" th:if="${user != null}">
+                <img src="images/user.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <span th:text="${user.getLogin()}"></span>
+            </span>
 
-            <br>
+        </div>
+    </nav>
+</header>
 
-            <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
+<section class="main-content" style="min-height: 90vh;">
+    <div class="container d-flex justify-content-center">
+        <div class="border border-primary rounded-3 border-3 py-3 px-3 my-3 mx-3">
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email address</label>
+                    <input class="form-control" id="emailInput" type="email" th:value="${userName}" name="userName"
+                           placeholder="user@gmail.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="password" required>
+                </div>
 
-            <br>
-            <p th:text="${error}"></p>
-        </form>
+                <div class="mb-3" th:if="${error != null}">
+                    <label class="form-label text-danger" th:text="${error}">Error</label>
+                </div>
 
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary mb-3" type="submit">Login</button>
+                </div>
+            </form>
+
+            <div class="d-flex justify-content-center">
+                <a href="/logup" class="link">Registry</a>
+            </div>
+        </div>
     </div>
-</div>
-<form action="/logup">
-    <button>Регистрация</button>
-</form>
+</section>
+
+<footer class="bg-primary">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <a href="https://github.com/Nikitavj">
+                <img class="mx-2 my-2" style="width: 40px;" src="images/git.png">
+            </a>
+        </div>
+    </div>
+</footer>
 
 </body>
 
 <script>
     const input = document.getElementById('emailInput');
 
-    input.addEventListener('input', function() {
+    input.addEventListener('input', function () {
         if (this.value === '') {
             this.setAttribute('placeholder', 'user@gmail.com');
         } else {

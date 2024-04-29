@@ -42,7 +42,7 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
 
         } catch (ConstraintViolationException e) {
             log.warn("Попытка сохранить объект {}, который уже содержится в БД", location);
-            throw new EntityDuplicationException("Локация для данного пользователя уже добавлена");
+            throw new EntityDuplicationException("Локация была добавлена ранее");
 
         } catch (HibernateException e) {
             log.warn("Исключение БД: {}", e.getMessage());

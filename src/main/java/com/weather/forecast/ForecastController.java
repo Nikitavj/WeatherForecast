@@ -31,6 +31,8 @@ public class ForecastController extends BaseController {
 
                 WebContext ctx = buildWebContext(req, resp);
                 ctx.setVariable("forecast", forecastDTO);
+                ctx.setVariable("name", locationDto.getName());
+                ctx.setVariable("user", session.getUser());
                 templateEngine.process("forecast", ctx, resp.getWriter());
             }
         }

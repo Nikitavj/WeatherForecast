@@ -51,70 +51,74 @@
 
         </div>
     </nav>
-
-
-    <!--    <div class="container">-->
-    <!--        <div class="header-user-name" th:if="${user != null}" th:text="${user.getLogin()}"></div>-->
-
-    <!--        <nav>-->
-    <!--            <a href="/login" class="nav__item" th:if="${user == null}">Login</a>-->
-    <!--            <a href="/logup" class="nav__item" th:if="${user == null}">Registry</a>-->
-    <!--            <a href="/login" class="nav__item" th:if="${user != null}">Logout</a>-->
-    <!--        </nav>-->
-    <!--    </div>-->
 </header>
 
-<main>
+<section class="main-content" style="min-height: 90vh;">
+
+    <div class="container d-flex flex-column align-items-center">
+        <form action='/locations' method='GET'>
+            <div class="mx-4 my-4">
+                <label class="form-location">Find Location</label>
+                <input class="border border-primary rounded-3 border-3" type='text' id='username' name='name'>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <label th:text="${error}"></label>
+        </div>
+    </div>
+
     <div class="container">
+        <div class="row">
 
-        <!--        <div class="search">-->
-        <!--            <form action='/locations' method='GET'>-->
-        <!--                <label for='username'>Поиск локации:</label>-->
-        <!--                <input type='text' id='username' name='name'>-->
+            <div class="col-lg-2 col-md-3 col-sm-4" th:each="location : ${locations}"
+                 th:object="${location.getCurrentForecastDto()}">
 
-        <!--                <input type='submit' value='Search'>-->
-        <!--            </form>-->
-        <!--        </div>-->
+                <div class="card border border-info rounded-3 border-3 my-3" style="width: 10rem;">
+                    <img src="https://openweathermap.org/img/wn/10d@2x.png" class="card-img-top"
+                         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=*{weather.get(0).getIcon()})}">
 
+                    <div class="card-body py-1">
+                        <h4 class="card-title d-flex justify-content-center"><span
+                                th:text="*{main.getTemp()}">Temp</span>°C</h4>
+                        <h5 class="card-title" th:text="${location.name}">Location name</h5>
+                        <h5 class="card-title" th:text="${location.state}">Location state</h5>
+                    </div>
 
-        <div class="locations">
-            <div class="forecast" th:each="location : ${locations}">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Давл: <span th:text="*{main.getPressure()}">Pressure</span> гПА</li>
+                        <li class="list-group-item">Влажн: <span th:text="*{main.getHumidity()}">Humidity</span> %</li>
+                        <li class="list-group-item">C/B: <span th:text="*{wind.getSpeed()}">Humidity</span> м/с</li>
+                    </ul>
 
-                <div th:object="${location.getCurrentForecastDto()}">
-
-                    <span class="name-location" th:text="*{name}">Location</span>
-
-                    <img class="icon-weather" src="https://openweathermap.org/img/wn/10d@2x.png"
-                         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=*{weather.get(0).getIcon()})}"/>
-
-                    <div class="weather-parameter"><span th:text="*{weather.get(0).getMain()}">Weather</span></div>
-                    <div class="weather-parameter">Темп: <span th:text="*{main.getTemp()}">Temp</span></div>
-                    <div class="weather-parameter">Давл: <span th:text="*{main.getPressure()}">Pressure</span></div>
-                    <div class="weather-parameter">Влажн: <span th:text="*{main.getHumidity()}">Humidity</span></div>
-                    <div class="weather-parameter">C/B: <span th:text="*{wind.getSpeed()}">Humidity</span></div>
-
-                    <div class="button">
+                    <div class="card-body py-1">
                         <form action='/forecast' method='get'>
                             <input type=hidden name='id' th:value="${location.getId()}">
-                            <input type='submit' value='5 day'>
+                            <button type="submit" class="btn btn-primary my-1">5 day</button>
                         </form>
-                    </div>
-                    <div class="button">
+
                         <form action='/locations/delete' method='post'>
                             <input type=hidden name='id' th:value="${location.getId()}">
-                            <input type='submit' value='Delete'>
+                            <button type="submit" class="btn btn-primary my-1">Delete</button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-</main>
+</section>
 
-<footer>
-
+<footer class="bg-primary">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <a href="https://github.com/Nikitavj">
+                <img class="mx-2 my-2" style="width: 40px;" src="images/git.png">
+            </a>
+        </div>
+    </div>
 </footer>
+
 
 </body>
 
