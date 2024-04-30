@@ -1,11 +1,12 @@
 package com.weather.forecast.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-class HourlyForecast {
+public class HourlyForecast {
     private Main main;
     private List<Weather> weather;
     private Wind wind;

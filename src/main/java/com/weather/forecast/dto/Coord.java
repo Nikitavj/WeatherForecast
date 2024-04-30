@@ -1,9 +1,11 @@
 package com.weather.forecast.dto;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
-class Coord {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Coord {
     private double lon;
     private double lat;
 }
