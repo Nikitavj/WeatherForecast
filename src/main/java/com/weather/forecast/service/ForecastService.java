@@ -1,7 +1,7 @@
 package com.weather.forecast.service;
 
-import com.weather.location.Location;
-import com.weather.location.LocationDto;
+import com.weather.forecast.location.Location;
+import com.weather.forecast.location.LocationDto;
 
 import java.util.List;
 

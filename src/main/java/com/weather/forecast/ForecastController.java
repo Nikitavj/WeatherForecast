@@ -2,9 +2,9 @@ package com.weather.forecast;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.forecast.dto.HourlyForecastDTO;
-import com.weather.location.LocationDto;
-import com.weather.session.Session;
-import com.weather.user.User;
+import com.weather.forecast.location.LocationDto;
+import com.weather.account.session.Session;
+import com.weather.account.user.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +35,9 @@ public class ForecastController extends BaseController {
                 ctx.setVariable("user", session.getUser());
                 templateEngine.process("forecast", ctx, resp.getWriter());
             }
+        } else {
+            resp.sendRedirect("/login");
         }
+
     }
 }

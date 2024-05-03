@@ -1,4 +1,4 @@
-package com.weather.location;
+package com.weather.forecast.location;
 
 import com.weather.forecast.dto.CurrentForecastDto;
 import com.weather.forecast.dto.HourlyForecastDTO;

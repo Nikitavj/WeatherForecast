@@ -1,4 +1,4 @@
-package com.weather.user;
+package com.weather.account.user;
 
 import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;

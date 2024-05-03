@@ -1,6 +1,6 @@
-package com.weather.session;
+package com.weather.account.session;
 
-import com.weather.user.User;
+import com.weather.account.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 

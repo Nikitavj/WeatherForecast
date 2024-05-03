@@ -1,9 +1,9 @@
-package com.weather.location;
+package com.weather.forecast.location;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.exception.*;
-import com.weather.session.Session;
-import com.weather.user.User;
+import com.weather.account.session.Session;
+import com.weather.account.user.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -109,6 +109,8 @@ public class LocationsController extends BaseController {
             locationService.deleteLocationOfUser(locationDto, user);
 
             resp.sendRedirect("/home");
+        } else {
+            resp.sendRedirect("/login");
         }
     }
 

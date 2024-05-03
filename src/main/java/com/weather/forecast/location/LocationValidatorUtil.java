@@ -1,4 +1,4 @@
-package com.weather.location;
+package com.weather.forecast.location;
 
 import com.weather.exception.InvalidLocationRequestException;
 import org.thymeleaf.util.NumberUtils;

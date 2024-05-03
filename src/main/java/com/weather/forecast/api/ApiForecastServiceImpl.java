@@ -8,7 +8,7 @@ import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.exception.ErrorApi;
 import com.weather.forecast.dto.CurrentForecastDto;
 import com.weather.forecast.dto.HourlyForecastDTO;
-import com.weather.location.LocationDto;
+import com.weather.forecast.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
 
 import java.io.IOException;

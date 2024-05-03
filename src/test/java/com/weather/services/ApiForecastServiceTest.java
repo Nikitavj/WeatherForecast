@@ -3,7 +3,7 @@ package com.weather.services;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.dto.*;
-import com.weather.location.LocationDto;
+import com.weather.forecast.location.LocationDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

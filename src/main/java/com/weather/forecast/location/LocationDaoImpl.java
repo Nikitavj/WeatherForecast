@@ -1,10 +1,10 @@
-package com.weather.location;
+package com.weather.forecast.location;
 
 import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.utils.HibernateUtils;
-import com.weather.user.User;
+import com.weather.account.user.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -68,7 +68,7 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
     @Override
     public List findAllByUser(User user) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Location where user = :user")
+            return session.createQuery("from Location where user = :user order by id")
                     .setParameter("user", user)
                     .getResultList();
 

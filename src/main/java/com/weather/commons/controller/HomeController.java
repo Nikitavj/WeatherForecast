@@ -1,7 +1,7 @@
 package com.weather.commons.controller;
 
-import com.weather.location.LocationDto;
-import com.weather.session.Session;
+import com.weather.forecast.location.LocationDto;
+import com.weather.account.session.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;

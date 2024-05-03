@@ -1,7 +1,7 @@
-package com.weather.account;
+package com.weather.account.controller;
 
 import com.weather.commons.controller.BaseController;
-import com.weather.session.Session;
+import com.weather.account.session.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;

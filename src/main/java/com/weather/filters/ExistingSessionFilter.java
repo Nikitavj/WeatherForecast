@@ -2,7 +2,7 @@ package com.weather.filters;
 
 import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
-import com.weather.session.Session;
+import com.weather.account.session.Session;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,9 +37,11 @@ public class ExistingSessionFilter implements Filter {
             session.setAttribute("cookieSessionId", cookie);
             UUID sessionId = UUID.fromString(cookie.getValue());
 
-            Session session1 = accountService.getSessionIfAuthenticated(sessionId);
-            if (session1 != null) {
-                session.setAttribute("session", session1);
+            Session sessionUser = accountService.getSessionIfAuthenticated(sessionId);
+            if (sessionUser != null) {
+                session.setAttribute("session", sessionUser);
+            } else {
+                session.setAttribute("session", null);
             }
         }
 

@@ -1,6 +1,6 @@
 package com.weather.account;
 
-import com.weather.session.Session;
+import com.weather.account.session.Session;
 
 import java.util.UUID;
 

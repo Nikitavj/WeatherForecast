@@ -15,9 +15,9 @@
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
-        <mapping class="com.weather.user.User"/>
-        <mapping class="com.weather.location.Location"/>
-        <mapping class="com.weather.session.Session"/>
+        <mapping class="com.weather.account.user.User"/>
+        <mapping class="com.weather.forecast.location.Location"/>
+        <mapping class="com.weather.account.session.Session"/>
 
     </session-factory>
 </hibernate-configuration>

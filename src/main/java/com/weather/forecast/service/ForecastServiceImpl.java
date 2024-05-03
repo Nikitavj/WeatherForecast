@@ -2,10 +2,10 @@ package com.weather.forecast.service;
 
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
-import com.weather.location.Location;
-import com.weather.location.LocationDao;
-import com.weather.location.LocationDaoImpl;
-import com.weather.location.LocationDto;
+import com.weather.forecast.location.Location;
+import com.weather.forecast.location.LocationDao;
+import com.weather.forecast.location.LocationDaoImpl;
+import com.weather.forecast.location.LocationDto;
 import com.weather.utils.HttpClientUtil;
 
 import java.util.List;
