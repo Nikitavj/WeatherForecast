@@ -14,7 +14,8 @@ import lombok.*;
 @Table(name = "Locations",
         uniqueConstraints = {@UniqueConstraint(
                 name = "UniqueUserLatitudeLongitude",
-                columnNames = {"userId", "latitude", "longitude"})}
+                columnNames = {"userId", "latitude", "longitude"})},
+        indexes = {@Index(columnList = "user")}
 )
 public class Location {
     @Id
