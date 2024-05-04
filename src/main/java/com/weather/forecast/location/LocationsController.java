@@ -40,7 +40,7 @@ public class LocationsController extends BaseController {
                 }
 
             } catch (InvalidLocationRequestException
-                     | ApiWeatherErrorException
+                     | ApiWeatherException
                      | ApiWeatherNotFoundException e) {
                 ctx.setVariable("error", e.getMessage());
                 ctx.setVariable("nameLocation", name);

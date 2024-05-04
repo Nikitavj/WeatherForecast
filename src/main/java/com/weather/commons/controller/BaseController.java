@@ -20,7 +20,6 @@ public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;
     protected JakartaServletWebApplication application;
     protected AccountService accountService;
-//    protected ForecastService forecastService;
     protected ApiForecastService apiForecastService;
 
     protected LocationService locationService;
@@ -34,7 +33,6 @@ public class BaseController extends HttpServlet {
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
         accountService = new AccountServiceImpl();
         apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
-//        forecastService = new ForecastServiceImpl();
         locationService = new LocationServiceImpl();
     }
 

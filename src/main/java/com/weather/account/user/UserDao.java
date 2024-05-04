@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UserDao extends Dao<User> {
 
-    int save(User user);
+    User save(User user);
 
     Optional<User> findById(int id);
 

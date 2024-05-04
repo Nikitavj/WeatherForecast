@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface LocationDao extends Dao<Location> {
 
-    int save(Location location);
-
     Optional<Location> findByName(String locName);
 
     List<Location> findAllByUser(User user);

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface SessionDao extends Dao<Session> {
 
-    UUID save(Session session);
+    Session save(Session session);
 
     Optional<Session> findById(UUID uuid);
 

@@ -30,27 +30,6 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
     }
 
     @Override
-    public int save(Location location) {
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            int id = (int) session.save(location);
-            session.getTransaction().commit();
-
-            log.info("В БД сохранен объект id = {} {}", id,  location);
-
-            return id;
-
-        } catch (ConstraintViolationException e) {
-            log.warn("Попытка сохранить объект {}, который уже содержится в БД", location);
-            throw new EntityDuplicationException("Локация была добавлена ранее");
-
-        } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
-            throw new DatabaseException(e.getMessage());
-        }
-    }
-
-    @Override
     public Optional<Location> findByName(String locName) {
         try (Session session = sessionFactory.openSession()) {
             Location location = (Location) session.createQuery("from Location where name = :locName")

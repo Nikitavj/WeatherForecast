@@ -3,7 +3,7 @@ package com.weather.forecast.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.weather.exception.ApiWeatherErrorException;
+import com.weather.exception.ApiWeatherException;
 import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.exception.ErrorApi;
 import com.weather.forecast.dto.CurrentForecastDto;
@@ -110,7 +110,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
 
             if (status/100 == 5) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
-                throw new ApiWeatherErrorException(e.getMessage());
+                throw new ApiWeatherException(e.getMessage());
             }
 
             return response.body();

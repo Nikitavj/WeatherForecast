@@ -21,15 +21,15 @@ public class SessionDaoImpl extends BaseDao<com.weather.account.session.Session>
     Logger log = LoggerFactory.getLogger(SessionDaoImpl.class);
 
     @Override
-    public UUID save(com.weather.account.session.Session session) {
+    public com.weather.account.session.Session save(com.weather.account.session.Session session) {
         try (Session sessionHiber = sessionFactory.openSession()) {
             sessionHiber.beginTransaction();
-            UUID id = (UUID) sessionHiber.save(session);
+            sessionHiber.save(session);
             sessionHiber.getTransaction().commit();
 
-            log.info("В БД сохранен объект id = {} {}", id,  session);
+            log.info("В БД сохранен объект {}", session);
 
-            return id;
+            return session;
 
         } catch (ConstraintViolationException e) {
             log.warn("Попытка сохранить объект {}, который уже содержится в БД", session);

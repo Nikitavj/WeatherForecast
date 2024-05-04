@@ -19,15 +19,15 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public int save(User user) {
+    public User save(User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            int id = (int) session.save(user);
+            session.save(user);
             session.getTransaction().commit();
 
-            log.info("В БД сохранен объект id = {} {}", id,  user);
+            log.info("В БД сохранен объект id = {}", user);
 
-            return id;
+            return user;
 
         } catch (ConstraintViolationException e) {
             log.warn("Попытка сохранить объект {}, который содержится в БД", user);

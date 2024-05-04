@@ -1,5 +1,7 @@
 package com.weather.services;
 
+import com.weather.exception.ApiWeatherException;
+import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.dto.*;
@@ -38,7 +40,7 @@ class ApiForecastServiceTest {
     }
 
     @Test
-    public void testSearchLocationByName() {
+    public void searchLocationByName() {
 
         final String JSON_LOCATIONS = """
                 [
@@ -103,7 +105,7 @@ class ApiForecastServiceTest {
     }
 
     @Test
-    public void testSearchCurrentForecastByLocation() {
+    public void searchCurrentForecastByLocation() {
 
         final String JSON_FORECAST = """
                 {
@@ -255,5 +257,39 @@ class ApiForecastServiceTest {
         expFcastDto.setCity(new City(524901, "Москва", new Coord(LONGITUDE, LATITUDE)));
 
         assertEquals(fcastDto, expFcastDto);
+    }
+
+    @Test
+    public void checkingStatusCodeApi() {
+
+        String JSON_ERROR = """
+                        {"cod":"400","message":"Nothing to geocode"}
+                
+                """;
+
+        Mockito.when(response.body()).thenReturn(JSON_ERROR);
+        Mockito.when(response.statusCode()).thenReturn(400);
+
+        assertThrows(ApiWeatherNotFoundException.class, () -> {
+            apiForecastService.searchLocationByName(
+                    LocationDto.builder()
+                            .name("Moscow")
+                            .build());
+        });
+
+        JSON_ERROR = """
+                        {"cod":"500","message":"Nothing to geocode"}
+                
+                """;
+
+        Mockito.when(response.body()).thenReturn(JSON_ERROR);
+        Mockito.when(response.statusCode()).thenReturn(500);
+
+        assertThrows(ApiWeatherException.class, () -> {
+            apiForecastService.searchLocationByName(
+                    LocationDto.builder()
+                            .name("Moscow")
+                            .build());
+        });
     }
 }
