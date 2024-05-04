@@ -28,7 +28,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     private static ObjectMapper objectMapper;
 
     static {
-        apiKey = PropertiesUtil.getProperty("weatherApyKey");
+        apiKey = System.getenv(PropertiesUtil.getProperty("envApyKey"));
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
