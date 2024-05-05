@@ -4,31 +4,29 @@ import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
 import com.weather.account.session.Session;
 import jakarta.servlet.*;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.*;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ExistingSessionFilter implements Filter {
+@WebFilter("/*")
+public class ExistingSessionFilter extends HttpFilter {
     private AccountService accountService;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init() throws ServletException {
         accountService = new AccountServiceImpl();
-
-        Filter.super.init(filterConfig);
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpSession session = request.getSession();
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpSession session = req.getSession();
 
         Optional<Cookie> optCookie = Arrays.stream(
-                        request.getCookies())
+                        req.getCookies())
                 .filter(c -> c.getName().equals("sessionId"))
                 .findFirst();
 
@@ -45,11 +43,6 @@ public class ExistingSessionFilter implements Filter {
             }
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
+        chain.doFilter(req, res);
     }
 }
