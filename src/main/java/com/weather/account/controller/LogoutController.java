@@ -26,7 +26,7 @@ public class LogoutController extends BaseController {
         }
 
         if (sessionOfUser != null) {
-            accountService.logout(sessionOfUser.getId());
+            accountService.logout(sessionOfUser);
         }
 
         session.invalidate();

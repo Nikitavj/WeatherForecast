@@ -91,7 +91,7 @@ class AccountServiceTest {
         Optional<Session> sessionOpt = sessionDao.findById(uuid);
         assertTrue(sessionOpt.isPresent());
 
-        accountService.logout(uuid);
+        accountService.logout(sessionOpt.get());
         sessionOpt = sessionDao.findById(uuid);
         assertFalse(sessionOpt.isPresent());
 
@@ -127,7 +127,7 @@ class AccountServiceTest {
         Optional<Session> sessionOpt = sessionDao.findById(uuid);
         assertTrue(sessionOpt.isPresent());
 
-        accountService.logout(uuid);
+        accountService.logout(sessionOpt.get());
 
         sessionOpt = sessionDao.findById(uuid);
         assertFalse(sessionOpt.isPresent());
@@ -141,7 +141,7 @@ class AccountServiceTest {
 
         assertTrue(accountService.getSessionIfAuthenticated(uuid) != null);
 
-        accountService.logout(uuid);
+        accountService.logout(sessionOpt.get());
         sessionOpt = sessionDao.findById(uuid);
         assertFalse(sessionOpt.isPresent());
 

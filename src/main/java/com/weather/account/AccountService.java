@@ -10,7 +10,7 @@ public interface AccountService {
 
     UUID login(String login, String password);
 
-    void logout(UUID sessionId);
+    void logout(Session session);
 
     Session getSessionIfAuthenticated(UUID sessionId);
 }

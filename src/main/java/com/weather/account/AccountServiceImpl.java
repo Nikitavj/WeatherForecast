@@ -75,8 +75,8 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void logout(UUID sessionId) {
-        sessionDao.delete(sessionId);
+    public void logout(Session session) {
+        sessionDao.delete(session);
     }
 
     @Override
