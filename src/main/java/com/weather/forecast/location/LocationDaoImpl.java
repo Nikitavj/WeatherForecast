@@ -4,16 +4,15 @@ import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;
 import com.weather.utils.HibernateUtils;
 import com.weather.account.user.User;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.List;
 
+@Slf4j
 public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
     private SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-    Logger log = LoggerFactory.getLogger(LocationDaoImpl.class);
 
     @Override
     public List findAllByUser(User user) {
@@ -23,7 +22,7 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
                     .getResultList();
 
         } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
+            log.warn(e.getMessage());
             throw new DatabaseException(e.getMessage());
         }
     }
@@ -38,7 +37,7 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
                     .getSingleResult();
 
         } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
+            log.warn(e.getMessage());
             throw new DatabaseException(e.getMessage());
         }
     }

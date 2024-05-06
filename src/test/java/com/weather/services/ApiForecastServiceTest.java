@@ -249,7 +249,7 @@ class ApiForecastServiceTest {
         HourlyForecast hourFcast = new HourlyForecast();
         hourFcast.setMain(new Main(19.94, 1031, 36));
         hourFcast.setWind(new Wind(6.01, 258, 8.5));
-        hourFcast.setDt_txt("2024-04-30 09:00:00");
+        hourFcast.setDate("2024-04-30 09:00:00");
         hourFcast.setWeather(List.of(new Weather(804, "Clouds", "пасмурно", "04d")));
 
         HourlyForecastDTO expFcastDto = new HourlyForecastDTO();

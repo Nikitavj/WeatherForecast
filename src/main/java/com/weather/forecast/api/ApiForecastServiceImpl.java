@@ -14,7 +14,6 @@ import com.weather.utils.PropertiesUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -42,83 +41,86 @@ public class ApiForecastServiceImpl implements ApiForecastService {
 
         try {
             String urlName = URLEncoder.encode(location.getName(), "UTF-8");
-            String uri = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=5&appid=%s",
-                    urlName,
-                    apiKey);
-
+            URI uri = URI.create("http://api.openweathermap.org/geo/1.0/direct?"
+                    + "q=" + urlName
+                    + "&limit=5"
+                    + "&appid=" + apiKey);
             String json = sendApiRequest(uri);
+
             LocationDto[] locations = objectMapper.readValue(json, LocationDto[].class);
             return Arrays.asList(locations);
 
         } catch (UnsupportedEncodingException
                  | JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ApiWeatherException();
         }
     }
 
     @Override
     public CurrentForecastDto searchCurrentForecastByLocation(LocationDto location) {
 
-        String uri = String.format("https://api.openweathermap.org/data/2.5/weather?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
-                location.getLat(),
-                location.getLon(),
-                apiKey);
-
+        URI uri = URI.create("https://api.openweathermap.org/data/2.5/weather?"
+                + "units=metric"
+                + "&lat=" + location.getLat()
+                + "&lon=" + location.getLon()
+                + "&appid=" + apiKey
+                + "&lang=ru");
         String json = sendApiRequest(uri);
 
         try {
             return objectMapper.readValue(json, CurrentForecastDto.class);
 
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ApiWeatherException();
         }
     }
 
     @Override
     public HourlyForecastDTO searchHourlyForecastByLocation(LocationDto location) {
 
-        String uri = String.format("https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=%s&lon=%s&appid=%s&lang=ru",
-                location.getLat(),
-                location.getLon(),
-                apiKey);
-
+        URI uri = URI.create("https://api.openweathermap.org/data/2.5/forecast?"
+                + "units=metric"
+                + "&lat=" + location.getLat()
+                + "&lon=" + location.getLon()
+                + "&appid=" + apiKey
+                + "&lang=ru");
         String json = sendApiRequest(uri);
 
         try {
             return objectMapper.readValue(json, HourlyForecastDTO.class);
 
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ApiWeatherException();
         }
     }
 
-    private String sendApiRequest(String uri) {
+    private String sendApiRequest(URI uri) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(uri))
+                    .uri(uri)
                     .GET()
                     .build();
-
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
             int status = response.statusCode();
 
-            if (status/100 == 4) {
+            if (status  == 404) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
-                throw new ApiWeatherNotFoundException(e.getMessage());
+                throw new ApiWeatherNotFoundException("Not Found: " + e.getCode());
             }
 
-            if (status/100 == 5) {
+            if (status / 100 == 4) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
-                throw new ApiWeatherException(e.getMessage());
+                throw new ApiWeatherException("Client error: " + e.getCode());
             }
 
+            if (status / 100 == 5) {
+                ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
+                throw new ApiWeatherException("Server error: " + e.getCode());
+            }
             return response.body();
 
-        } catch (URISyntaxException
-                 | InterruptedException
-                 | IOException e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException | IOException e) {
+            throw new ApiWeatherException();
         }
     }
 }

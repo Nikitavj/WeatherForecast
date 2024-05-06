@@ -15,23 +15,20 @@ import org.thymeleaf.context.WebContext;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/locations/*")
+@WebServlet("/locations")
 public class LocationsController extends BaseController {
 
-
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Session session = (Session) req.getSession().getAttribute("session");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext ctx = buildWebContext(req, resp);
+        Session session = (Session) req.getSession().getAttribute("session");
 
         String name = req.getParameter("name");
 
         if (name != null) {
             try {
                 LocationValidatorUtil.validateNameLocation(name);
-
                 LocationDto locationDto = LocationDto.builder().name(name).build();
-
                 List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
 
@@ -52,14 +49,17 @@ public class LocationsController extends BaseController {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Session session = (Session) req.getSession().getAttribute("session");
+        WebContext ctx = buildWebContext(req, resp);
 
         if (session != null) {
             User user = session.getUser();
             String name = req.getParameter("name");
             String latStr = req.getParameter("latitude");
             String lonStr = req.getParameter("longitude");
+
+            ctx.setVariable("user", session.getUser());
 
             try {
                 LocationValidatorUtil.validateNameLocation(name);
@@ -68,32 +68,28 @@ public class LocationsController extends BaseController {
 
                 LocationDto locationDto = LocationDto.builder().name(name).lat(lat).lon(lon).build();
                 locationService.addLocationToUser(locationDto, user);
+                resp.sendRedirect("/home");
 
-            } catch (InvalidLocationRequestException
-                     | EntityDuplicationException
-                     | DatabaseException e) {
-                WebContext ctx = buildWebContext(req, resp);
-                ctx.setVariable("user", session.getUser());
+            } catch (InvalidLocationRequestException e) {
                 ctx.setVariable("error", e.getMessage());
                 templateEngine.process("locations", ctx, resp.getWriter());
-                return;
+
+            } catch (EntityDuplicationException e) {
+                ctx.setVariable("error", name + " location has already been added");
+                templateEngine.process("locations", ctx, resp.getWriter());
 
             } catch (NumberFormatException e) {
-                WebContext ctx = buildWebContext(req, resp);
-                ctx.setVariable("user", session.getUser());
-                ctx.setVariable("error", "Неверный формат параметров latitude, longitude");
+                ctx.setVariable("error", "Incorrect parameter format latitude, longitude");
                 templateEngine.process("locations", ctx, resp.getWriter());
-                return;
-
             }
-            resp.sendRedirect("/home");
+
         } else {
             resp.sendRedirect("/login");
         }
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Session session = (Session) req.getSession().getAttribute("session");
 
         if (session != null) {
@@ -116,17 +112,12 @@ public class LocationsController extends BaseController {
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        String method = req.getParameter("_method");
 
-        String r = ((HttpServletRequest) req).getPathInfo();
-
-        if (r == null) {
-            super.service(req, res);
+        if (method != null && method.equals("DELETE")) {
+            doDelete((HttpServletRequest) req, (HttpServletResponse) res);
         } else {
-            r = r.replace("/", "");
-
-            if (r.equals("delete")) {
-                doDelete((HttpServletRequest) req, (HttpServletResponse) res);
-            }
+            super.service(req, res);
         }
     }
 }

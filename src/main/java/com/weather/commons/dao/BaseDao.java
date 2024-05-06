@@ -3,16 +3,15 @@ package com.weather.commons.dao;
 import com.weather.exception.DatabaseException;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.utils.HibernateUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public abstract class BaseDao<T> implements Dao<T> {
     private SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-    private Logger log = LoggerFactory.getLogger(BaseDao.class);
 
     @Override
     public void delete(T entity) {
@@ -21,10 +20,10 @@ public abstract class BaseDao<T> implements Dao<T> {
             session.remove(entity);
             session.getTransaction().commit();
 
-            log.info("Удален объект {}", entity.toString());
+            log.info("Delete: {}", entity.toString());
 
         } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
+            log.warn(e.getMessage());
             throw new DatabaseException(e.getMessage());
         }
     }
@@ -35,16 +34,16 @@ public abstract class BaseDao<T> implements Dao<T> {
             session.save(entity);
             session.getTransaction().commit();
 
-            log.info("В БД сохранен объект {} ", entity);
+            log.info("Save: {} ", entity);
 
             return entity;
         } catch (
                 ConstraintViolationException e) {
-            log.warn("Попытка сохранить объект {}, который уже содержится в БД", entity);
-            throw new EntityDuplicationException("Локация была добавлена ранее");
+            log.warn(e.getMessage());
+            throw new EntityDuplicationException("This object is already contained in the database");
 
         } catch (HibernateException e) {
-            log.warn("Исключение БД: {}", e.getMessage());
+            log.warn(e.getMessage());
             throw new DatabaseException(e.getMessage());
         }
     }

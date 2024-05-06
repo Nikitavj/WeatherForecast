@@ -19,18 +19,20 @@ import java.util.UUID;
 public class LogupController extends BaseController {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        IContext ctx = buildWebContext(req, resp);
-        templateEngine.process("logup", ctx, resp.getWriter());
+        IContext context = buildWebContext(req, resp);
+        templateEngine.process("logup", context, resp.getWriter());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        WebContext context = buildWebContext(req, resp);
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String repeatPassword = req.getParameter("repeatPassword");
+
+        context.setVariable("userName", userName);
 
         try {
             LogupValidatorUtil.validLogup(userName, password, repeatPassword);
@@ -41,12 +43,13 @@ public class LogupController extends BaseController {
 
             resp.sendRedirect("/home");
 
-        } catch (InvalidLoginException
-                 | EntityDuplicationException e) {
-            WebContext ctx = buildWebContext(req, resp);
-            ctx.setVariable("userName", userName);
-            ctx.setVariable("error", e.getMessage());
-            templateEngine.process("logup", ctx, resp.getWriter());
+        } catch (InvalidLoginException e) {
+            context.setVariable("error", e.getMessage());
+            templateEngine.process("logup", context, resp.getWriter());
+
+        } catch (EntityDuplicationException e) {
+            context.setVariable("error", userName + " is already registered");
+            templateEngine.process("logup", context, resp.getWriter());
         }
     }
 }

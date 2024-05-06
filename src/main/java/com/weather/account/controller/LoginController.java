@@ -16,28 +16,25 @@ import java.util.UUID;
 public class LoginController extends BaseController {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext ctx = buildWebContext(req, resp);
         templateEngine.process("login", ctx, resp.getWriter());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        WebContext ctx = buildWebContext(req, resp);
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
 
         try {
             UUID uuidSession = accountService.login(userName, password);
-
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);
-
             resp.sendRedirect("/home");
 
         } catch (InvalidLoginException e) {
-            WebContext ctx = buildWebContext(req, resp);
+
             ctx.setVariable("userName", userName);
             ctx.setVariable("error", e.getMessage());
             templateEngine.process("login", ctx, resp.getWriter());

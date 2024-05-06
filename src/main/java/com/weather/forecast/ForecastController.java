@@ -17,7 +17,7 @@ import java.io.IOException;
 public class ForecastController extends BaseController {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Session session = (Session) req.getSession().getAttribute("session");
 
         if (session != null) {
@@ -29,15 +29,15 @@ public class ForecastController extends BaseController {
             if (locationDto != null) {
                 HourlyForecastDTO forecastDTO = apiForecastService.searchHourlyForecastByLocation(locationDto);
 
-                WebContext ctx = buildWebContext(req, resp);
-                ctx.setVariable("forecast", forecastDTO);
-                ctx.setVariable("name", locationDto.getName());
-                ctx.setVariable("user", session.getUser());
-                templateEngine.process("forecast", ctx, resp.getWriter());
+                WebContext context = buildWebContext(req, resp);
+                context.setVariable("forecast", forecastDTO);
+                context.setVariable("name", locationDto.getName());
+                context.setVariable("user", session.getUser());
+                templateEngine.process("forecast", context, resp.getWriter());
             }
+
         } else {
             resp.sendRedirect("/login");
         }
-
     }
 }

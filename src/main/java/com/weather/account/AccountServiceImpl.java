@@ -17,9 +17,9 @@ import java.util.UUID;
 
 public class AccountServiceImpl implements AccountService{
     private static long MAX_AGE_SESSION_SECONDS_DEFAULT = 3600;
-    UserDao userDao = new UserDaoImpl();
-    SessionDao sessionDao = new SessionDaoImpl();
-    SessionDeletionScheduler scheduler = new SessionDeletionScheduler();
+    private UserDao userDao = new UserDaoImpl();
+    private SessionDao sessionDao = new SessionDaoImpl();
+    private SessionDeletionScheduler scheduler = SessionDeletionScheduler.getInstance();
 
     @Override
     public UUID logup(String login, String password) {
@@ -66,11 +66,11 @@ public class AccountServiceImpl implements AccountService{
                 }
 
             } else {
-                throw new InvalidLoginException("Пароль неверный");
+                throw new InvalidLoginException("Wrong password");
             }
 
         } else {
-            throw new InvalidLoginException("Пользователь с данным именем не зарегистрирован");
+            throw new InvalidLoginException("User with this name is not registered");
         }
     }
 

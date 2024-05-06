@@ -16,14 +16,13 @@ import java.util.List;
 public class HomeController extends BaseController {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         WebContext context = buildWebContext(req, resp);
 
         Session sessionOfUser = (Session) session.getAttribute("session");
 
         if (sessionOfUser != null) {
-
             List<LocationDto> locations = locationService.getUsersLocations(sessionOfUser.getUser());
 
             context.setVariable("locations", locations);

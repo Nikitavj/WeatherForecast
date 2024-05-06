@@ -7,8 +7,18 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class SessionDeletionScheduler {
-    private ScheduledExecutorService schedule = new ScheduledThreadPoolExecutor(1);
+    private static SessionDeletionScheduler INSTANCE;
     private SessionDao dao = new SessionDaoImpl();
+    private ScheduledExecutorService schedule = new ScheduledThreadPoolExecutor(1);
+
+    private SessionDeletionScheduler() {};
+
+    public static SessionDeletionScheduler getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SessionDeletionScheduler();
+        }
+        return INSTANCE;
+    }
 
     public void scheduleDeletion(Session session) {
         Runnable task = () -> {

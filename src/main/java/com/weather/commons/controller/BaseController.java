@@ -16,18 +16,17 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
+import java.io.IOException;
+
 public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;
     protected JakartaServletWebApplication application;
     protected AccountService accountService;
     protected ApiForecastService apiForecastService;
-
     protected LocationService locationService;
 
-
-
     @Override
-    public void init() throws ServletException {
+    public void init() {
         templateEngine = (TemplateEngine) getServletContext()
                 .getAttribute("templateEngine");
         application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
@@ -41,5 +40,4 @@ public class BaseController extends HttpServlet {
         IWebExchange webExchange =  application.buildExchange(req, resp);
         return new WebContext(webExchange);
     }
-
 }
