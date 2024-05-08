@@ -1,7 +1,7 @@
 package com.weather.forecast.location;
 
-import com.weather.forecast.dto.CurrentForecastDto;
-import com.weather.forecast.dto.HourlyForecastDTO;
+import com.weather.forecast.api.dto.CurrentForecastDto;
+import com.weather.forecast.api.dto.HourlyForecastDTO;
 import lombok.*;
 
 @Getter

@@ -2,7 +2,6 @@ package com.weather.commons.controller;
 
 import com.weather.forecast.location.LocationDto;
 import com.weather.account.session.Session;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,7 +27,6 @@ public class HomeController extends BaseController {
             context.setVariable("locations", locations);
             context.setVariable("user", sessionOfUser.getUser());
         }
-
         templateEngine.process("home", context, resp.getWriter());
     }
 }

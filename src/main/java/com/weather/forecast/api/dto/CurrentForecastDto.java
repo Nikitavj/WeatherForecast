@@ -1,6 +1,5 @@
-package com.weather.forecast.dto;
+package com.weather.forecast.api.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

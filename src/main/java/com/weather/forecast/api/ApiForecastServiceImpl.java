@@ -3,11 +3,12 @@ package com.weather.forecast.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.weather.exception.ApiWeatherException;
 import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.exception.ErrorApi;
-import com.weather.forecast.dto.CurrentForecastDto;
-import com.weather.forecast.dto.HourlyForecastDTO;
+import com.weather.forecast.api.dto.CurrentForecastDto;
+import com.weather.forecast.api.dto.HourlyForecastDTO;
 import com.weather.forecast.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
 
@@ -29,6 +30,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     static {
         apiKey = System.getenv(PropertiesUtil.getProperty("envApyKey"));
         objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 

@@ -1,11 +1,10 @@
 package com.weather.forecast;
 
 import com.weather.commons.controller.BaseController;
-import com.weather.forecast.dto.HourlyForecastDTO;
+import com.weather.forecast.api.dto.HourlyForecastDTO;
 import com.weather.forecast.location.LocationDto;
 import com.weather.account.session.Session;
 import com.weather.account.user.User;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -44,7 +44,6 @@ public class LocationsController extends BaseController {
                 ctx.setVariable("user", session.getUser());
             }
         }
-
         templateEngine.process("locations", ctx, resp.getWriter());
     }
 
@@ -101,7 +100,6 @@ public class LocationsController extends BaseController {
                     .builder()
                     .id(idLoc)
                     .build();
-
             locationService.deleteLocationOfUser(locationDto, user);
 
             resp.sendRedirect("/home");
