@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container d-flex flex-column align-items-center" th:fragment="search">
+    <form action='/locations' method='GET'>
+        <div class="mx-4 my-4">
+            <label class="form-location">Find Location</label>
+            <input class="border border-primary rounded-3 border-3" type='text' id='username' name='name'>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    <div class="alert alert-danger" role="alert" th:if="${error != null}">
+        <label th:text="${error}"></label>
+    </div>
+</div>
+</body>
+</html>

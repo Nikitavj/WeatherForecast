@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>Forecasts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,64 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-
 <body>
-
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home">
-                <img src="images/cloud.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                Weather
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item" th:if="${user == null}">
-                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item" th:if="${user == null}">
-                        <a class="nav-link active" aria-current="page" href="/logup">Registration</a>
-                    </li>
-                    <li class="nav-item" th:if="${user != null}">
-                        <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <span class="navbar-text" th:if="${user != null}">
-                <img src="images/user.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                <span th:text="${user.getLogin()}"></span>
-            </span>
-
-        </div>
-    </nav>
-</header>
+<div th:insert="header :: header"></div>
 
 <section class="main-content" style="min-height: 90vh;">
-    <div class="container d-flex flex-column align-items-center">
-        <form action='/locations' method='GET'>
-            <div class="mx-4 my-4">
-                <label class="form-location">Find Location</label>
-                <input class="border border-primary rounded-3 border-3" type='text' id='username' name='name'>
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </form>
-
-        <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <label th:text="${error}"></label>
-        </div>
-    </div>
+    <div th:insert="search_location :: search"></div>
 
     <div class="container d-flex justify-content-center">
         <h4 th:text="${nameLocation}"></h4>
@@ -74,43 +19,42 @@
 
     <div class="container">
         <div class="row">
-
-
-            <div class="forc" th:each="year : ${forecast.getForecasts()}">
-                <div class="year" th:text="|${year.getNumber()} year|"></div>
-                <div class="monthForecast" th:each="month : ${year.getForecasts()}">
-                    <div class="dayForecast" th:each="day : ${month.getForecasts()}">
-                        <div class="dayDate"
+            <div class="forecast" th:each="year : ${forecast.getForecasts()}">
+                <div class="year-forecast" th:text="|${year.getNumber()} year|"></div>
+                <div class="month-forecast" th:each="month : ${year.getForecasts()}">
+                    <div class="day-forecast" th:each="day : ${month.getForecasts()}">
+                        <div class="day-date"
                              th:text="${#temporals.format(day.getForecasts().get(0).date, 'dd.MM')}"></div>
-
                         <div class="d-flex flex-row mb-1 cardblock">
                             <div class="px-1" th:each="hour : ${day.getForecasts()}">
-                                <div class="card border border-info rounded-3 border-3 my-1 px-0 lh-1" style="width: 9rem;"
-                                     th:object="${hour}">
 
+                                <div class="card border border-info rounded-3 border-3 my-1 px-0 lh-1"
+                                     style="width: 9rem;"
+                                     th:object="${hour}">
                                     <div class="card-body py-0">
                                         <h5 class="card-title" th:text="${#temporals.format(hour.date, 'HH:mm')}"></h5>
                                     </div>
-
                                     <img src="https://openweathermap.org/img/wn/10d@2x.png" class="card-img-top"
                                          th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=*{weather.get(0).icon})}">
-
                                     <div class="card-body py-1">
                                         <h4 class="card-title d-flex justify-content-center"><span
                                                 th:text="*{main.temp}">Temp</span>°C
                                         </h4>
                                     </div>
-
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item" style="padding-left: 0.2rem; padding-right: 0.2rem;">Давл: <span
+                                        <li class="list-group-item"
+                                            style="padding-left: 0.2rem; padding-right: 0.2rem;">Давл: <span
                                                 th:text="*{main.pressure}">Pressure</span>
                                             гПА
                                         </li>
-                                        <li class="list-group-item" style="padding-left: 0.2rem; padding-right: 0.2rem;">Влажн: <span
+                                        <li class="list-group-item"
+                                            style="padding-left: 0.2rem; padding-right: 0.2rem;">Влажн: <span
                                                 th:text="*{main.humidity}">Humidity</span>
                                             %
                                         </li>
-                                        <li class="list-group-item" style="padding-left: 0.2rem; padding-right: 0.2rem;">C/B: <span th:text="*{wind.speed}">Speed</span> м/с
+                                        <li class="list-group-item"
+                                            style="padding-left: 0.2rem; padding-right: 0.2rem;">C/B: <span
+                                                th:text="*{wind.speed}">Speed</span> м/с
                                         </li>
                                     </ul>
                                 </div>
@@ -119,46 +63,14 @@
                     </div>
                 </div>
             </div>
-
-
-<!--            <div class="col-lg-2 col-md-3 col-sm-4" th:each="hour : ${forecast.getList()}">-->
-
-<!--                <div class="card border border-info rounded-3 border-3 my-3" style="width: 10rem;"-->
-<!--                     th:object="${hour}">-->
-
-<!--                    <div class="card-body">-->
-<!--                        <h5 class="card-title" th:text="*{date}"></h5>-->
-<!--                    </div>-->
-
-<!--                    <img src="https://openweathermap.org/img/wn/10d@2x.png" class="card-img-top"-->
-<!--                         th:attr="src=@{https://openweathermap.org/img/wn/{icon}@2x.png(icon=*{weather.get(0).icon})}">-->
-
-<!--                    <div class="card-body py-1">-->
-<!--                        <h4 class="card-title d-flex justify-content-center"><span th:text="*{main.temp}">Temp</span>°C-->
-<!--                        </h4>-->
-<!--                    </div>-->
-
-<!--                    <ul class="list-group list-group-flush">-->
-<!--                        <li class="list-group-item">Давл: <span th:text="*{main.pressure}">Pressure</span> гПА</li>-->
-<!--                        <li class="list-group-item">Влажн: <span th:text="*{main.humidity}">Humidity</span> %</li>-->
-<!--                        <li class="list-group-item">C/B: <span th:text="*{wind.speed}">Speed</span> м/с</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </section>
 
-<footer class="bg-primary">
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <a href="https://github.com/Nikitavj">
-                <img class="mx-2 my-2" style="width: 40px;" src="images/git.png">
-            </a>
-        </div>
-    </div>
-</footer>
+<div th:insert="footer :: footer"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
-
 </html>
