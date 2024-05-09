@@ -6,7 +6,6 @@ import com.weather.account.session.Session;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
@@ -17,7 +16,7 @@ public class ExistingSessionFilter extends HttpFilter {
     private AccountService accountService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         accountService = new AccountServiceImpl();
     }
 

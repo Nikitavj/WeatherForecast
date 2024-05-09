@@ -11,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.context.WebContext;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class LocationsController extends BaseController {
 
         if (name != null) {
             try {
-                LocationValidatorUtil.validateNameLocation(name);
+                LocationValidator.validateNameLocation(name);
                 LocationDto locationDto = LocationDto.builder().name(name).build();
                 List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
@@ -61,7 +60,7 @@ public class LocationsController extends BaseController {
             ctx.setVariable("user", session.getUser());
 
             try {
-                LocationValidatorUtil.validateNameLocation(name);
+                LocationValidator.validateNameLocation(name);
                 double lat = Double.parseDouble(latStr);
                 double lon = Double.parseDouble(lonStr);
 

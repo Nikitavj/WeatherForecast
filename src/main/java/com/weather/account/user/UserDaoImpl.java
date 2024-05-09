@@ -2,13 +2,11 @@ package com.weather.account.user;
 
 import com.weather.commons.dao.BaseDao;
 import com.weather.exception.DatabaseException;
-import com.weather.exception.EntityDuplicationException;
 import com.weather.utils.HibernateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
 import java.util.Optional;
 
 @Slf4j

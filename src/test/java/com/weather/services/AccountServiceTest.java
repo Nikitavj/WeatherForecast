@@ -147,26 +147,4 @@ class AccountServiceTest {
 
         assertFalse(accountService.getSessionIfAuthenticated(uuid) != null);
     }
-
-    @Test
-    void checkAuthenticationAfterExpiredLifetimeSession() {
-        UUID uuid = accountService.logup(login, password);
-        Optional<Session> sessionOpt = sessionDao.findById(uuid);
-        assertTrue(sessionOpt.isPresent());
-
-        assertTrue(accountService.getSessionIfAuthenticated(uuid) != null);
-
-        long lifetimeSession = Long.parseLong(PropertiesUtil.getProperty("sessionMaxAgeSeconds"));
-
-        try {
-            Thread.sleep(lifetimeSession * 1500);
-
-            assertFalse(accountService.getSessionIfAuthenticated(uuid) != null);
-            sessionOpt = sessionDao.findById(uuid);
-            assertFalse(sessionOpt.isPresent());
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

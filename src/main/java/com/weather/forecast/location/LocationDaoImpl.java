@@ -30,7 +30,7 @@ public class LocationDaoImpl extends BaseDao<Location> implements LocationDao {
     @Override
     public Location getByNumber(int number, User user) {
         try(Session session = sessionFactory.openSession()) {
-            return (Location) session.createQuery("from Location where user = :user")
+            return (Location) session.createQuery("from Location where user = :user order by id")
                     .setParameter("user", user)
                     .setFirstResult(number)
                     .setMaxResults(1)

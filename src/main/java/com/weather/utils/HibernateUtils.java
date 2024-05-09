@@ -6,22 +6,24 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtils {
-    private static SessionFactory sessionfactory;
+    private static SessionFactory INSTANCE;
 
-    static {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-
-        try {
-            sessionfactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-    }
+    private HibernateUtils() {}
 
     public static SessionFactory getSessionFactory() {
-        return sessionfactory;
+        if (INSTANCE == null) {
+            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                    .configure()
+                    .build();
+
+            try {
+                INSTANCE = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+
+            } catch (Exception e) {
+                StandardServiceRegistryBuilder.destroy(registry);
+            }
+        }
+
+        return INSTANCE;
     }
 }

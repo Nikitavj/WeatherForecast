@@ -3,13 +3,15 @@ package com.weather.utils;
 import java.net.http.HttpClient;
 
 public class HttpClientUtil {
-    private static HttpClient httpClient;
+    private static HttpClient INSTANCE;
 
-    static {
-        httpClient = HttpClient.newBuilder().build();
-    }
+    private HttpClientUtil() {}
 
     public static HttpClient getHttpClient(){
-        return httpClient;
+        if (INSTANCE == null) {
+            INSTANCE = HttpClient.newBuilder().build();
+        }
+
+        return INSTANCE;
     }
 }

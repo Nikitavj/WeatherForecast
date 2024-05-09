@@ -2,13 +2,11 @@ package com.weather.account.controller;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.exception.InvalidLoginException;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.context.WebContext;
-
 import java.io.IOException;
 import java.util.UUID;
 

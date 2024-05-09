@@ -3,8 +3,7 @@ package com.weather.account.controller;
 import com.weather.commons.controller.BaseController;
 import com.weather.exception.EntityDuplicationException;
 import com.weather.exception.InvalidLoginException;
-import com.weather.utils.LogupValidatorUtil;
-import jakarta.servlet.ServletException;
+import com.weather.account.LogupValidator;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +19,6 @@ public class LogupController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
         IContext context = buildWebContext(req, resp);
         templateEngine.process("logup", context, resp.getWriter());
     }
@@ -35,12 +33,11 @@ public class LogupController extends BaseController {
         context.setVariable("userName", userName);
 
         try {
-            LogupValidatorUtil.validLogup(userName, password, repeatPassword);
+            LogupValidator.validLogup(userName, password, repeatPassword);
             UUID uuidSession = accountService.logup(userName, password);
 
             Cookie cookie = new Cookie("sessionId", uuidSession.toString());
             resp.addCookie(cookie);
-
             resp.sendRedirect("/home");
 
         } catch (InvalidLoginException e) {

@@ -2,7 +2,6 @@ package com.weather.account.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Objects;
 
 @Getter

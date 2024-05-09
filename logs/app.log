@@ -70,3 +70,9 @@ insert into Users (login,password,id) values (?,?,default) [23505-224]
 2024-04-08 20:47:16,329 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"
 Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"; SQL statement:
 insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-05-09 20:02:52,363 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]
+2024-05-09 20:07:07,281 ERROR o.h.e.j.s.SqlExceptionHelper [main] Нарушение уникального индекса или первичного ключа: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"
+Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_4 ON PUBLIC.USERS(LOGIN NULLS FIRST) VALUES ( /* 5 */ 'user@gmail.com' )"; SQL statement:
+insert into Users (login,password,id) values (?,?,default) [23505-224]

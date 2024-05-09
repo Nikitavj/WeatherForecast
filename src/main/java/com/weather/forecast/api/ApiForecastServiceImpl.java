@@ -11,7 +11,6 @@ import com.weather.forecast.api.dto.CurrentForecastDto;
 import com.weather.forecast.api.dto.HourlyForecastDTO;
 import com.weather.forecast.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;

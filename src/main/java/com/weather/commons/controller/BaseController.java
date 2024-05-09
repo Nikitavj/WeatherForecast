@@ -9,7 +9,6 @@ import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.location.LocationService;
 import com.weather.forecast.location.LocationServiceImpl;
 import com.weather.utils.HttpClientUtil;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,8 +16,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
-
-import java.io.IOException;
 
 public class BaseController extends HttpServlet {
     protected TemplateEngine templateEngine;

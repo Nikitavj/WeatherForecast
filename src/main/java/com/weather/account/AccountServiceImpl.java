@@ -23,9 +23,9 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public UUID logup(String login, String password) {
-        String hashpw = BCrypt.hashpw(password, BCrypt.gensalt());
+        String hashPw = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        User user = new User(login, hashpw);
+        User user = new User(login, hashPw);
         userDao.save(user);
 
         Session session = new Session(

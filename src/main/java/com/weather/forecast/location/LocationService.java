@@ -1,7 +1,6 @@
 package com.weather.forecast.location;
 
 import com.weather.account.user.User;
-
 import java.util.List;
 
 public interface LocationService {
