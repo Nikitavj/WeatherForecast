@@ -3,7 +3,7 @@ package com.weather.forecast;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.dto.DayForecast;
-import com.weather.forecast.dto.GeneralForecast;
+import com.weather.forecast.dto.OverallForecast;
 import com.weather.forecast.dto.MonthForecast;
 import com.weather.forecast.dto.YearForecast;
 import com.weather.forecast.api.dto.HourlyForecast;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class ForecastServiceImpl implements ForecastService {
     private ApiForecastService forecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
 
-    public GeneralForecast getDaysFcast(LocationDto location) {
-        GeneralForecast forecast = new GeneralForecast();
+    public OverallForecast getDaysFcast(LocationDto location) {
+        OverallForecast forecast = new OverallForecast();
         HourlyForecastDTO dto = forecastService.searchHourlyForecastByLocation(location);
 
         Map<Integer, Map<Integer, Map<Integer,List<HourlyForecast>>>> fmap = dto.getList().stream()

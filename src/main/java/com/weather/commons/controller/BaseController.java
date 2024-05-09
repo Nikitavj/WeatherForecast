@@ -2,6 +2,8 @@ package com.weather.commons.controller;
 
 import com.weather.account.AccountService;
 import com.weather.account.AccountServiceImpl;
+import com.weather.forecast.ForecastService;
+import com.weather.forecast.ForecastServiceImpl;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.location.LocationService;
@@ -24,6 +26,7 @@ public class BaseController extends HttpServlet {
     protected AccountService accountService;
     protected ApiForecastService apiForecastService;
     protected LocationService locationService;
+    protected ForecastService forecastService;
 
     @Override
     public void init() {
@@ -33,6 +36,7 @@ public class BaseController extends HttpServlet {
         accountService = new AccountServiceImpl();
         apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
         locationService = new LocationServiceImpl();
+        forecastService = new ForecastServiceImpl();
     }
 
     public WebContext buildWebContext(HttpServletRequest req, HttpServletResponse resp) {

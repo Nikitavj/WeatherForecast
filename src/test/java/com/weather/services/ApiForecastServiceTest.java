@@ -5,7 +5,6 @@ import com.weather.exception.ApiWeatherNotFoundException;
 import com.weather.forecast.api.ApiForecastService;
 import com.weather.forecast.api.ApiForecastServiceImpl;
 import com.weather.forecast.api.dto.*;
-import com.weather.forecast.dto.apidto.*;
 import com.weather.forecast.location.LocationDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

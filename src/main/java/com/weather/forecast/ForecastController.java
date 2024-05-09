@@ -2,6 +2,7 @@ package com.weather.forecast;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.forecast.api.dto.HourlyForecastDTO;
+import com.weather.forecast.dto.OverallForecast;
 import com.weather.forecast.location.LocationDto;
 import com.weather.account.session.Session;
 import com.weather.account.user.User;
@@ -26,11 +27,13 @@ public class ForecastController extends BaseController {
             LocationDto locationDto = locationService.getLocationByIdForUser(id, user);
 
             if (locationDto != null) {
-                HourlyForecastDTO forecastDTO = apiForecastService.searchHourlyForecastByLocation(locationDto);
+//                HourlyForecastDTO forecast = apiForecastService.searchHourlyForecastByLocation(locationDto);
+
+                OverallForecast forecast = forecastService.getDaysFcast(locationDto);
 
                 WebContext context = buildWebContext(req, resp);
-                context.setVariable("forecast", forecastDTO);
-                context.setVariable("name", locationDto.getName());
+                context.setVariable("forecast", forecast);
+                context.setVariable("nameLocation", locationDto.getName());
                 context.setVariable("user", session.getUser());
                 templateEngine.process("forecast", context, resp.getWriter());
             }
