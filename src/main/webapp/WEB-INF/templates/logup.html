@@ -16,7 +16,7 @@
             <form action="/logup" method="post">
                 <div class="mb-3">
                     <label for="emailInput" class="form-label">Email address</label>
-                    <input class="form-control" id="emailInput" type="email" th:value="${userName}" name="userName"
+                    <input class="form-control" id="emailInput" type="email" th:value="${user_name}" name="user_name"
                            placeholder="user@gmail.com" required>
                 </div>
                 <div class="mb-3">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Repeat password</label>
-                    <input class="form-control" type="password" name="repeatPassword" placeholder="password" required>
+                    <input class="form-control" type="password" name="repeat_password" placeholder="password" required>
                 </div>
 
                 <div class="mb-3" th:if="${error != null}">

@@ -26,7 +26,7 @@ public class ExistingSessionFilter extends HttpFilter {
 
         Optional<Cookie> optCookie = Arrays.stream(
                         req.getCookies())
-                .filter(c -> c.getName().equals("sessionId"))
+                .filter(c -> c.getName().equals("session_id"))
                 .findFirst();
 
         if (optCookie.isPresent()) {

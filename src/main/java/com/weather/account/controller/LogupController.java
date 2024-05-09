@@ -26,17 +26,17 @@ public class LogupController extends BaseController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = buildWebContext(req, resp);
-        String userName = req.getParameter("userName");
+        String userName = req.getParameter("user_name");
         String password = req.getParameter("password");
-        String repeatPassword = req.getParameter("repeatPassword");
+        String repeatPassword = req.getParameter("repeat_password");
 
-        context.setVariable("userName", userName);
+        context.setVariable("user_name", userName);
 
         try {
             LogupValidator.validLogup(userName, password, repeatPassword);
             UUID uuidSession = accountService.logup(userName, password);
 
-            Cookie cookie = new Cookie("sessionId", uuidSession.toString());
+            Cookie cookie = new Cookie("session_id", uuidSession.toString());
             resp.addCookie(cookie);
             resp.sendRedirect("/home");
 

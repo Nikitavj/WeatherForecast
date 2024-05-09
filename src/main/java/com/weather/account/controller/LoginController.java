@@ -22,18 +22,18 @@ public class LoginController extends BaseController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext ctx = buildWebContext(req, resp);
-        String userName = req.getParameter("userName");
+        String userName = req.getParameter("user_name");
         String password = req.getParameter("password");
 
         try {
             UUID uuidSession = accountService.login(userName, password);
-            Cookie cookie = new Cookie("sessionId", uuidSession.toString());
+            Cookie cookie = new Cookie("session_id", uuidSession.toString());
             resp.addCookie(cookie);
             resp.sendRedirect("/home");
 
         } catch (InvalidLoginException e) {
 
-            ctx.setVariable("userName", userName);
+            ctx.setVariable("user_name", userName);
             ctx.setVariable("error", e.getMessage());
             templateEngine.process("login", ctx, resp.getWriter());
         }
