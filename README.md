@@ -40,11 +40,13 @@
 ### 1. Главная страница.
 Адрес - /home.
 
-![image](http84f17663)
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/c1d0cad1-0a53-4e95-bd07-2d0dc8281072)
 
 ### 2. Страница поиска локаций.
 Адрес - /locations.
 GET параметр name содержит название запрашиваемой локации.
+
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/10595404-4f92-4f10-a88b-65ce36539e7b)
 
 Добавление локации.
 Адрес - /locations.
@@ -59,13 +61,19 @@ _method содержит значение DELETE.
 Адрес - /forecast.  
 GET параметр id содержит порядковый номер локации юзера.
 
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/2a4d78f6-4cac-4383-a1e4-5a8d8a5b1131)
+
 ### 4. Страница авторизации.
 Адрес - /logup.
 POST параметр user_name сожержит email, password и repeat_password содержат пароли.
 
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/09a20c6f-ea05-4d1e-ab0c-44784eae8ca8)
+
 ### 5. Страница входа.
 Адрес - /login.
 POST параметр user_name сожержит email, password содержит пароль.
+
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/9a372bf1-f5b1-4bf8-82d3-0623b8b71011)
 
 ### 6. Страница выхода.
 Адрес - /logout.
