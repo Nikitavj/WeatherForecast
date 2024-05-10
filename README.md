@@ -29,7 +29,7 @@
 - Mockito
 - Lombok
 - Jackson
-- slf4j-log4j2
+- SLF4J-log4j2
 
 # Installation
 1. Указать в переменной среды KEY_API_WEATHER ключ для внешнего API поиска погоды.
