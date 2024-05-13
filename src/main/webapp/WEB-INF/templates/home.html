@@ -36,12 +36,12 @@
                     </ul>
 
                     <div class="card-body py-1">
-                        <form action='/forecast' method='get'>
+                        <form action='/forecast' th:attr="action=@{/forecast}" method='get'>
                             <input type=hidden name='id' th:value="${location.getId()}">
                             <button type="submit" class="btn btn-primary my-1">5 day</button>
                         </form>
 
-                        <form action='/locations' method='post'>
+                        <form action='/locations' th:attr="action=@{/locations}"method='post'>
                             <input type=hidden name='id' th:value="${location.getId()}">
                             <input type=hidden name='_method' value="DELETE">
                             <button type="submit" class="btn btn-primary my-1">Delete</button>

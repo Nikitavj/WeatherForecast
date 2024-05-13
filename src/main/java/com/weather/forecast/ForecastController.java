@@ -35,7 +35,7 @@ public class ForecastController extends BaseController {
             }
 
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 }

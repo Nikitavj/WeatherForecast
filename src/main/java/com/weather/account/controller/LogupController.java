@@ -38,7 +38,7 @@ public class LogupController extends BaseController {
 
             Cookie cookie = new Cookie("session_id", uuidSession.toString());
             resp.addCookie(cookie);
-            resp.sendRedirect("/home");
+            resp.sendRedirect(req.getContextPath() + "/home");
 
         } catch (InvalidLoginException e) {
             context.setVariable("error", e.getMessage());

@@ -66,7 +66,7 @@ public class LocationsController extends BaseController {
 
                 LocationDto locationDto = LocationDto.builder().name(name).lat(lat).lon(lon).build();
                 locationService.addLocationToUser(locationDto, user);
-                resp.sendRedirect("/home");
+                resp.sendRedirect(req.getContextPath() + "/home");
 
             } catch (InvalidLocationRequestException e) {
                 ctx.setVariable("error", e.getMessage());
@@ -82,7 +82,7 @@ public class LocationsController extends BaseController {
             }
 
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 
@@ -101,9 +101,9 @@ public class LocationsController extends BaseController {
                     .build();
             locationService.deleteLocationOfUser(locationDto, user);
 
-            resp.sendRedirect("/home");
+            resp.sendRedirect(req.getContextPath() + "/home");
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 

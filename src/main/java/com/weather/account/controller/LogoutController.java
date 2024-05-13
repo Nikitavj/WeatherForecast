@@ -29,6 +29,6 @@ public class LogoutController extends BaseController {
         }
         session.invalidate();
 
-        resp.sendRedirect("/home");
+        resp.sendRedirect(req.getContextPath() + "/home");
     }
 }
