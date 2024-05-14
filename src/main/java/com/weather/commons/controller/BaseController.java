@@ -29,9 +29,11 @@ public class BaseController extends HttpServlet {
     public void init() {
         templateEngine = (TemplateEngine) getServletContext()
                 .getAttribute("templateEngine");
-        application = (JakartaServletWebApplication) getServletContext().getAttribute("application");
+        application = (JakartaServletWebApplication) getServletContext()
+                .getAttribute("application");
         accountService = new AccountServiceImpl();
-        apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
+        apiForecastService = new ApiForecastServiceImpl(
+                HttpClientUtil.getHttpClient());
         locationService = new LocationServiceImpl();
         forecastService = new ForecastServiceImpl();
     }

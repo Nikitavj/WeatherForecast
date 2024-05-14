@@ -40,7 +40,8 @@ public abstract class BaseDao<T> implements Dao<T> {
         } catch (
                 ConstraintViolationException e) {
             log.warn(e.getMessage());
-            throw new EntityDuplicationException("This object is already contained in the database");
+            throw new EntityDuplicationException(
+                    "This object is already contained in the database");
 
         } catch (HibernateException e) {
             log.warn(e.getMessage());

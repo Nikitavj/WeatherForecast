@@ -163,7 +163,8 @@ class ApiForecastServiceTest {
                 .lat(LATITUDE)
                 .lon(LONGITUDE)
                 .build();
-        CurrentForecastDto forecastDto = apiForecastService.searchCurrentForecastByLocation(locationDto);
+        CurrentForecastDto forecastDto = apiForecastService
+                .searchCurrentForecastByLocation(locationDto);
 
         CurrentForecastDto expForDto = new CurrentForecastDto();
         expForDto.setName("Москва");
@@ -245,13 +246,15 @@ class ApiForecastServiceTest {
                 .lat(LATITUDE)
                 .lon(LONGITUDE)
                 .build();
-        HourlyForecastDTO fcastDto = apiForecastService.searchHourlyForecastByLocation(locationDto);
+        HourlyForecastDTO fcastDto = apiForecastService
+                .searchHourlyForecastByLocation(locationDto);
 
         HourlyForecast hourFcast = new HourlyForecast();
         hourFcast.setMain(new Main(19.94, 1031, 36));
         hourFcast.setWind(new Wind(6.01, 258, 8.5));
         hourFcast.setDate(LocalDateTime.parse("2024-04-30T09:00:00"));
-        hourFcast.setWeather(List.of(new Weather(804, "Clouds", "пасмурно", "04d")));
+        hourFcast.setWeather(List.of(
+                new Weather(804, "Clouds", "пасмурно", "04d")));
 
         HourlyForecastDTO expFcastDto = new HourlyForecastDTO();
         expFcastDto.setList(List.of(hourFcast));

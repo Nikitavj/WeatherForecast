@@ -28,7 +28,8 @@ public class LocationsController extends BaseController {
             try {
                 LocationValidator.validateNameLocation(name);
                 LocationDto locationDto = LocationDto.builder().name(name).build();
-                List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
+                List<LocationDto> locations = apiForecastService
+                        .searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
 
                 if (session != null) {
@@ -64,7 +65,11 @@ public class LocationsController extends BaseController {
                 double lat = Double.parseDouble(latStr);
                 double lon = Double.parseDouble(lonStr);
 
-                LocationDto locationDto = LocationDto.builder().name(name).lat(lat).lon(lon).build();
+                LocationDto locationDto = LocationDto.builder()
+                        .name(name)
+                        .lat(lat)
+                        .lon(lon)
+                        .build();
                 locationService.addLocationToUser(locationDto, user);
                 resp.sendRedirect(req.getContextPath() + "/home");
 

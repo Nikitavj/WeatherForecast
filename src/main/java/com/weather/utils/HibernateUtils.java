@@ -17,7 +17,9 @@ public class HibernateUtils {
                     .build();
 
             try {
-                INSTANCE = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+                INSTANCE = new MetadataSources(registry)
+                        .buildMetadata()
+                        .buildSessionFactory();
 
             } catch (Exception e) {
                 StandardServiceRegistryBuilder.destroy(registry);
