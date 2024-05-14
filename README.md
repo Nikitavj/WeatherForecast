@@ -32,7 +32,11 @@
 - SLF4J-log4j2
 
 # Installation
-1. Указать в переменной среды KEY_API_WEATHER ключ для внешнего API поиска погоды.
+1. Указать в переменной среды:
+   + KEY_API_WEATHER - ключ для внешнего API поиска погоды.
+   + JDBC_USER - имя пользователя для доступа к БД.
+   + JDBC_PASSWORD - пароль для доступа к БД.
+   + JDBC_URL - адрес подключения к БД (jdbc:postgresql://localhost:5432/weather). 
 2. Собрать c помощью Maven war артефакт приложения.
 3. Развернуть war артефакт в Tomcat.
 
