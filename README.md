@@ -29,7 +29,7 @@
 - Mockito
 - Lombok
 - Jackson
-- slf4j-log4j2
+- SLF4J-log4j2
 
 # Installation
 1. Указать в переменной среды KEY_API_WEATHER ключ для внешнего API поиска погоды.
@@ -40,33 +40,41 @@
 ### 1. Главная страница.
 Адрес - /home.
 
-![image](http84f17663)
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/c1d0cad1-0a53-4e95-bd07-2d0dc8281072)
 
 ### 2. Страница поиска локаций.
-Адрес - /locations.
+Адрес - /locations.  
 GET параметр name содержит название запрашиваемой локации.
 
-Добавление локации.
-Адрес - /locations.
-POST параметр name содержит название, latitude и longitude содержат координаты локации.
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/10595404-4f92-4f10-a88b-65ce36539e7b)
 
-Удаление локации.
-Адрес - /locations.
-POST параметр id содержит порядковый номер локации юзера,
-_method содержит значение DELETE.
++ Добавление локации.  
+  Адрес - /locations.  
+  POST параметр name содержит название, latitude и longitude содержат координаты локации.
+
++ Удаление локации.   
+  Адрес - /locations.  
+  POST параметр id содержит порядковый номер локации юзера,  
+    _method содержит значение DELETE.
 
 ### 3. Страница прогноза погоды для локации.
-Адрес - /forecast.  
-GET параметр id содержит порядковый номер локации юзера.
+  Адрес - /forecast.     
+  GET параметр id содержит порядковый номер локации юзера.
+
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/b99eec27-aeef-436f-88e0-950c06e85315)
 
 ### 4. Страница авторизации.
-Адрес - /logup.
-POST параметр user_name сожержит email, password и repeat_password содержат пароли.
+  Адрес - /logup.  
+  POST параметр user_name сожержит email, password и repeat_password содержат пароли.
+
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/09a20c6f-ea05-4d1e-ab0c-44784eae8ca8)
 
 ### 5. Страница входа.
-Адрес - /login.
-POST параметр user_name сожержит email, password содержит пароль.
+  Адрес - /login.  
+  POST параметр user_name сожержит email, password содержит пароль.
+
+![image](https://github.com/Nikitavj/WeatherForecast/assets/134765675/9a372bf1-f5b1-4bf8-82d3-0623b8b71011)
 
 ### 6. Страница выхода.
-Адрес - /logout.
+  Адрес - /logout.
 
