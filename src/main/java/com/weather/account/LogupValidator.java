@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 public class LogupValidator {
 
     private final static String EMAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-
     public static void validLogup(String userName, String password, String repeatPassword) {
         validUserName(userName);
         validPassword(password, repeatPassword);
@@ -30,17 +29,21 @@ public class LogupValidator {
         String MIN_LENGTH = "3";
         String MAX_LENGTH = "20";
         boolean SPECIAL_CHAR_NEEDED = false;
-
         String ONE_DIGIT = "(?=.*[0-9])";
         String LOWER_CASE = "(?=.*[a-z])";
         String UPPER_CASE = "(?=.*[A-Z])";
         String SPECIAL_CHAR = SPECIAL_CHAR_NEEDED ? "(?=.*[@#$%^&+=])" : "";
         String NO_SPACE = "(?=\\S+$)";
-
         String MIN_MAX_CHAR = ".{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
-        String PATTERN = ONE_DIGIT + LOWER_CASE + UPPER_CASE + SPECIAL_CHAR + NO_SPACE + MIN_MAX_CHAR;
+        String PATTERN = ONE_DIGIT
+                + LOWER_CASE
+                + UPPER_CASE
+                + SPECIAL_CHAR
+                + NO_SPACE
+                + MIN_MAX_CHAR;
 
-        if (!Pattern.compile(PATTERN, Pattern.CASE_INSENSITIVE).matcher(password).matches()) {
+        Pattern pattern = Pattern.compile(PATTERN, Pattern.CASE_INSENSITIVE);
+        if (!pattern.matcher(password).matches()) {
 
             throw new InvalidLoginException(
                     String.format(

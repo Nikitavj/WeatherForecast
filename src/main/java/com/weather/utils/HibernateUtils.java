@@ -1,26 +1,29 @@
 package com.weather.utils;
 
+import com.weather.exception.DatabaseException;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtils {
     private static SessionFactory INSTANCE;
 
-    private HibernateUtils() {}
+    private HibernateUtils() {
+    }
 
     public static SessionFactory getSessionFactory() {
         if (INSTANCE == null) {
-            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure()
-                    .build();
+            Configuration cfg = new Configuration();
+            cfg.configure();
+            cfg.setProperty("hibernate.connection.username", System.getenv("JDBC_USER"));
+            cfg.setProperty("hibernate.connection.password", System.getenv("JDBC_PASSWORD"));
+            cfg.setProperty("hibernate.connection.url", System.getenv("JDBC_URL"));
 
             try {
-                INSTANCE = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+                INSTANCE = cfg.buildSessionFactory();
 
-            } catch (Exception e) {
-                StandardServiceRegistryBuilder.destroy(registry);
+            } catch (HibernateException e) {
+                throw new DatabaseException(e.getMessage());
             }
         }
 

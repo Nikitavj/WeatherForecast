@@ -16,7 +16,8 @@ public class ContextListener implements ServletContextListener {
         ServletContext context = sce.getServletContext();
         context.setAttribute("templateEngine", ThymeleafUtil.buildTemplateEngine(context));
 
-        JakartaServletWebApplication application = JakartaServletWebApplication.buildApplication(context);
+        JakartaServletWebApplication application = JakartaServletWebApplication
+                .buildApplication(context);
         context.setAttribute("application", application);
     }
 

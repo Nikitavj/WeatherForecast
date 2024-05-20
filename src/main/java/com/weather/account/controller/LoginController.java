@@ -29,7 +29,7 @@ public class LoginController extends BaseController {
             UUID uuidSession = accountService.login(userName, password);
             Cookie cookie = new Cookie("session_id", uuidSession.toString());
             resp.addCookie(cookie);
-            resp.sendRedirect("/home");
+            resp.sendRedirect(req.getContextPath() + "/home");
 
         } catch (InvalidLoginException e) {
 

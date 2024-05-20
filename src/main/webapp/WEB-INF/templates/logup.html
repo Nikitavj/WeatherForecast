@@ -13,7 +13,7 @@
 <section class="main-content" style="min-height: 90vh;">
     <div class="container d-flex justify-content-center">
         <div class="border border-primary rounded-3 border-3 py-3 px-3 my-3 mx-3">
-            <form action="/logup" method="post">
+            <form action="/logup" th:attr="action=@{/logup}" method="post">
                 <div class="mb-3">
                     <label for="emailInput" class="form-label">Email address</label>
                     <input class="form-control" id="emailInput" type="email" th:value="${user_name}" name="user_name"
@@ -38,7 +38,7 @@
             </form>
 
             <div class="d-flex justify-content-center">
-                <a href="/login" class="link">Login</a>
+                <a th:href="@{/login}" class="link">Login</a>
             </div>
         </div>
     </div>

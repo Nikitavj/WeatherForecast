@@ -22,25 +22,25 @@ public class LocationsController extends BaseController {
         WebContext ctx = buildWebContext(req, resp);
         Session session = (Session) req.getSession().getAttribute("session");
 
+        if (session != null) {
+            ctx.setVariable("user", session.getUser());
+        }
+
         String name = req.getParameter("name");
 
         if (name != null) {
             try {
                 LocationValidator.validateNameLocation(name);
                 LocationDto locationDto = LocationDto.builder().name(name).build();
-                List<LocationDto> locations = apiForecastService.searchLocationByName(locationDto);
+                List<LocationDto> locations = apiForecastService
+                        .searchLocationByName(locationDto);
                 ctx.setVariable("locations", locations);
-
-                if (session != null) {
-                    ctx.setVariable("user", session.getUser());
-                }
 
             } catch (InvalidLocationRequestException
                      | ApiWeatherException
                      | ApiWeatherNotFoundException e) {
                 ctx.setVariable("error", e.getMessage());
                 ctx.setVariable("name_location", name);
-                ctx.setVariable("user", session.getUser());
             }
         }
         templateEngine.process("locations", ctx, resp.getWriter());
@@ -64,9 +64,13 @@ public class LocationsController extends BaseController {
                 double lat = Double.parseDouble(latStr);
                 double lon = Double.parseDouble(lonStr);
 
-                LocationDto locationDto = LocationDto.builder().name(name).lat(lat).lon(lon).build();
+                LocationDto locationDto = LocationDto.builder()
+                        .name(name)
+                        .lat(lat)
+                        .lon(lon)
+                        .build();
                 locationService.addLocationToUser(locationDto, user);
-                resp.sendRedirect("/home");
+                resp.sendRedirect(req.getContextPath() + "/home");
 
             } catch (InvalidLocationRequestException e) {
                 ctx.setVariable("error", e.getMessage());
@@ -82,7 +86,7 @@ public class LocationsController extends BaseController {
             }
 
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 
@@ -101,9 +105,9 @@ public class LocationsController extends BaseController {
                     .build();
             locationService.deleteLocationOfUser(locationDto, user);
 
-            resp.sendRedirect("/home");
+            resp.sendRedirect(req.getContextPath() + "/home");
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 

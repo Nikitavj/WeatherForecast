@@ -33,7 +33,7 @@
                     </ul>
 
                     <div class="card-body py-1">
-                        <form action='/locations' method='post' >
+                        <form action='/locations' th:attr="action=@{/locations}"method='post' >
                             <input type=hidden name='latitude' th:value="*{lat}">
                             <input type=hidden name='longitude' th:value="*{lon}">
                             <input type=hidden name='name' th:value="*{name}">

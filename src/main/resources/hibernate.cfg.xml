@@ -5,19 +5,16 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.current_session_context_class">thread</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/weather</property> <!-- BD Mane -->
         <property name="connection.driver_class">org.postgresql.Driver</property> <!-- DB Driver -->
-        <property name="connection.username">postgres</property> <!-- DB User -->
-        <property name="connection.password">root</property> <!-- DB Password -->
-
         <property name="hbm2ddl.auto">create</property> <!-- create / create-drop / update -->
-
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/weather</property>
 
         <mapping class="com.weather.account.user.User"/>
         <mapping class="com.weather.forecast.location.Location"/>
         <mapping class="com.weather.account.session.Session"/>
-
     </session-factory>
 </hibernate-configuration>

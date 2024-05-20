@@ -10,7 +10,7 @@ import org.thymeleaf.context.WebContext;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns = {"/home", ""})
 public class HomeController extends BaseController {
 
     @Override
@@ -21,7 +21,8 @@ public class HomeController extends BaseController {
         Session sessionOfUser = (Session) session.getAttribute("session");
 
         if (sessionOfUser != null) {
-            List<LocationDto> locations = locationService.getUsersLocations(sessionOfUser.getUser());
+            List<LocationDto> locations = locationService
+                    .getUsersLocations(sessionOfUser.getUser());
 
             context.setVariable("locations", locations);
             context.setVariable("user", sessionOfUser.getUser());

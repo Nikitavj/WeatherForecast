@@ -11,6 +11,9 @@ import com.weather.forecast.api.dto.CurrentForecastDto;
 import com.weather.forecast.api.dto.HourlyForecastDTO;
 import com.weather.forecast.location.LocationDto;
 import com.weather.utils.PropertiesUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -27,7 +30,7 @@ public class ApiForecastServiceImpl implements ApiForecastService {
     private static ObjectMapper objectMapper;
 
     static {
-        apiKey = System.getenv(PropertiesUtil.getProperty("envApyKey"));
+        apiKey = System.getenv("KEY_API_WEATHER");
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -101,20 +104,24 @@ public class ApiForecastServiceImpl implements ApiForecastService {
                     .uri(uri)
                     .GET()
                     .build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(
+                    request,
+                    HttpResponse.BodyHandlers.ofString());
             int status = response.statusCode();
 
-            if (status  == 404) {
+            if (status  == HttpServletResponse.SC_NOT_FOUND) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
                 throw new ApiWeatherNotFoundException("Not Found: " + e.getCode());
             }
 
-            if (status / 100 == 4) {
+            status = (int) Math.round(status / 100) * 100;
+
+            if (status == HttpServletResponse.SC_BAD_REQUEST) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
                 throw new ApiWeatherException("Client error: " + e.getCode());
             }
 
-            if (status / 100 == 5) {
+            if (status == HttpServletResponse.SC_INTERNAL_SERVER_ERROR) {
                 ErrorApi e = objectMapper.readValue(response.body(), ErrorApi.class);
                 throw new ApiWeatherException("Server error: " + e.getCode());
             }

@@ -1,33 +1,22 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
-
-
 <hibernate-configuration>
 
-<session-factory>
-
-    <property name="connection.driver_class">org.h2.Driver</property>
-    <property name="connection.url">jdbc:h2:mem:testdb</property>
-    <property name="connection.username">sa</property>
-    <property name="connection.password"/>
-
-    <property name="connection.pool_size">10</property>
-
-    <property name="dialect">org.hibernate.dialect.H2Dialect</property>
-
-    <property name="current_session_context_class">thread</property>
-
-    <property name="hbm2ddl.auto">create</property>
-
-    <property name="show_sql">true</property>
-    <property name="format_sql">true</property>
-
-    <mapping class="com.weather.account.user.User"/>
-    <mapping class="com.weather.forecast.location.Location"/>
-    <mapping class="com.weather.account.session.Session"/>
-
-</session-factory>
+    <session-factory>
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="connection.url">jdbc:h2:mem:testdb</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"/>
+        <property name="connection.pool_size">10</property>
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hbm2ddl.auto">create</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <mapping class="com.weather.account.user.User"/>
+        <mapping class="com.weather.forecast.location.Location"/>
+        <mapping class="com.weather.account.session.Session"/>
+    </session-factory>
 
 </hibernate-configuration>

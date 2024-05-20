@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocationServiceImpl implements LocationService {
-    private ApiForecastServiceImpl apiForecastService = new ApiForecastServiceImpl(HttpClientUtil.getHttpClient());
+    private ApiForecastServiceImpl apiForecastService = new ApiForecastServiceImpl(
+            HttpClientUtil.getHttpClient());
     private LocationDao locationDao = new LocationDaoImpl();
 
     @Override
@@ -45,7 +46,8 @@ public class LocationServiceImpl implements LocationService {
                     .lon(l.getLongitude())
                     .build();
 
-            CurrentForecastDto forecast = apiForecastService.searchCurrentForecastByLocation(locationDto);
+            CurrentForecastDto forecast = apiForecastService
+                    .searchCurrentForecastByLocation(locationDto);
 
             if (forecast != null) {
                 locationDto.setCurrentForecastDto(forecast);

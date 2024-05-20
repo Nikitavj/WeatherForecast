@@ -8,7 +8,8 @@ public class PropertiesUtil {
     private static Properties properties;
 
     static {
-        InputStream is = PropertiesUtil.class.getClassLoader().getResourceAsStream("config.properties");
+        InputStream is = PropertiesUtil.class.getClassLoader()
+                .getResourceAsStream("config.properties");
         Properties appProperties = new Properties();
 
         try {
