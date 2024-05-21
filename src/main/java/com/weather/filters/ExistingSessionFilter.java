@@ -23,22 +23,25 @@ public class ExistingSessionFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpSession session = req.getSession();
+        Cookie[] cookies = req.getCookies();
 
-        Optional<Cookie> optCookie = Arrays.stream(
-                        req.getCookies())
-                .filter(c -> c.getName().equals("session_id"))
-                .findFirst();
+        if (cookies != null) {
+            Optional<Cookie> optCookie = Arrays.stream(
+                            req.getCookies())
+                    .filter(c -> c.getName().equals("session_id"))
+                    .findFirst();
 
-        if (optCookie.isPresent()) {
-            Cookie cookie = optCookie.get();
-            session.setAttribute("cookieSessionId", cookie);
-            UUID sessionId = UUID.fromString(cookie.getValue());
+            if (optCookie.isPresent()) {
+                Cookie cookie = optCookie.get();
+                session.setAttribute("cookieSessionId", cookie);
+                UUID sessionId = UUID.fromString(cookie.getValue());
 
-            Session sessionUser = accountService.getSessionIfAuthenticated(sessionId);
-            if (sessionUser != null) {
-                session.setAttribute("session", sessionUser);
-            } else {
-                session.setAttribute("session", null);
+                Session sessionUser = accountService.getSessionIfAuthenticated(sessionId);
+                if (sessionUser != null) {
+                    session.setAttribute("session", sessionUser);
+                } else {
+                    session.setAttribute("session", null);
+                }
             }
         }
 
