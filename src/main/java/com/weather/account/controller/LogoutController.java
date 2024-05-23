@@ -2,7 +2,6 @@ package com.weather.account.controller;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.account.session.Session;
-import com.weather.utils.CookiesUtil;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +26,6 @@ public class LogoutController extends BaseController {
             accountService.logout(sessionOfUser);
         }
         session.invalidate();
-
         resp.sendRedirect(req.getContextPath() + "/home");
     }
 }

@@ -7,7 +7,6 @@ import com.weather.utils.CookiesUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.UUID;
 
@@ -35,7 +34,6 @@ public class ExistingSessionFilter extends HttpFilter {
         } else {
             session.setAttribute("session", null);
         }
-
 
         chain.doFilter(req, res);
     }

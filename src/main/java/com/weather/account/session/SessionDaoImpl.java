@@ -15,10 +15,9 @@ public class SessionDaoImpl extends BaseDao<com.weather.account.session.Session>
     private SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
 
     @Override
-    public Optional<com.weather.account.session.Session> findById(UUID uuid) {
-        try (org.hibernate.Session session = sessionFactory.openSession()) {
+    public Optional<Session> findById(UUID uuid) {
+        try (var session = sessionFactory.openSession()) {
             Session sessionUser = session.get(Session.class, uuid);
-
             return Optional.ofNullable(sessionUser);
 
         } catch (HibernateException e) {
@@ -28,8 +27,8 @@ public class SessionDaoImpl extends BaseDao<com.weather.account.session.Session>
     }
 
     @Override
-    public Optional<com.weather.account.session.Session> findByUser(User user) {
-        try (org.hibernate.Session session = sessionFactory.openSession()) {
+    public Optional<Session> findByUser(User user) {
+        try (var session = sessionFactory.openSession()) {
             Session sessionUser = (Session) session
                     .createQuery("from Session where user = :user")
                     .setParameter("user", user)
