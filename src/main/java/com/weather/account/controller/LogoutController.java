@@ -2,6 +2,7 @@ package com.weather.account.controller;
 
 import com.weather.commons.controller.BaseController;
 import com.weather.account.session.Session;
+import com.weather.utils.CookiesUtil;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +18,10 @@ public class LogoutController extends BaseController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
         Session sessionOfUser = (Session) session.getAttribute("session");
-        Cookie cookieId = (Cookie) session.getAttribute("cookieSessionId");
 
-        if (cookieId != null) {
-            cookieId.setMaxAge(0);
-            resp.addCookie(cookieId);
-        }
+        Cookie cookieId = new Cookie("session_id", null);
+        cookieId.setMaxAge(0);
+        resp.addCookie(cookieId);
 
         if (sessionOfUser != null) {
             accountService.logout(sessionOfUser);
